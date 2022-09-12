@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>MathToMe</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/fonts/font-awesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/fonts/simple-line-icons.min.css' %}"
+    />
+  </head>
+
+  <body id="page-top">
+    <a class="menu-toggle rounded" href="#"><i class="fa fa-bars"></i></a>
+    <nav class="navbar navbar-light navbar-expand" id="sidebar-wrapper">
+      <div class="container">
+        <button
+          data-bs-toggle="collapse"
+          class="navbar-toggler d-none"
+          data-bs-target="#"
+        ></button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav sidebar-nav" id="sidebar-nav">
+            <li class="nav-item sidebar-brand">
+              <a class="nav-link active js-scroll-trigger" href="#page-top"
+                >Brand</a
+              >
+            </li>
+            <li class="nav-item sidebar-nav-item">
+              <a class="nav-link js-scroll-trigger" href="#page-top">Home</a>
+            </li>
+            <li class="nav-item sidebar-nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item sidebar-nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services"
+                >Services</a
+              >
+            </li>
+            <li class="nav-item sidebar-nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio"
+                >Portfolio</a
+              >
+            </li>
+            <li class="nav-item sidebar-nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header
+      class="d-flex masthead"
+      style="background-image: url('{% static 'assets/img/bg-masthead.jpg' %}')"
+    >
+      <div class="container my-auto text-center">
+        <h1 class="mb-1">Math</h1>
+        <h3 class="mb-5"><em>Resuelve problemas matemáticos</em></h3>
+        <a
+          class="btn btn-primary btn-xl js-scroll-trigger"
+          role="button"
+          href="#about"
+          >Sobre nosotros</a
+        >
+        <div class="overlay"></div>
+      </div>
+    </header>
+    <section id="about" class="content-section bg-light">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h2>¡Metodos matematicos!</h2>
+            <p class="lead mb-5">
+              <span
+                >En este apartado encontraras todos los metodos para la solucion
+                de proplemas matematicos disponibles</span
+              >
+            </p>
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageBiseccion' %}'"
+              >Biseccion</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="callout"
+      style="
+        background: #ecb807, url('assets/img/bg-callout.jpg');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      "
+    >
+      <div class="container text-center" id="seccionGrafica">
+        <h2 class="mx-auto mb-5">
+          <span>¡Grafica tus funciones!</span>
+        </h2>
+        <a class="btn btn-primary btn-xl" role="button" href="#">Graficar</a>
+      </div>
+    </section>
+    <section class="content-section bg-primary text-white">
+      <div class="container text-center">
+        <h2 class="mb-4">The buttons below are impossible to resist..</h2>
+        <a class="btn btn-light btn-xl me-4" role="button" href="#">Click Me!</a
+        ><a class="btn btn-dark btn-xl me-4" role="button" href="#"
+          >Look at Me</a
+        >
+      </div>
+    </section>
+    <footer class="footer text-center">
+      <div class="container">
+        <ul class="list-inline mb-5">
+          <li class="list-inline-item">
+            &nbsp;<a class="link-light social-link rounded-circle" href="#"
+              ><i class="icon-social-facebook"></i
+            ></a>
+          </li>
+          <li class="list-inline-item">
+            &nbsp;<a class="link-light social-link rounded-circle" href="#"
+              ><i class="icon-social-twitter"></i
+            ></a>
+          </li>
+          <li class="list-inline-item">
+            &nbsp;<a class="link-light social-link rounded-circle" href="#"
+              ><i class="icon-social-github"></i
+            ></a>
+          </li>
+        </ul>
+        <p class="text-muted mb-0 small">Copyright &nbsp;© Brand 2022</p>
+      </div>
+      <a class="js-scroll-trigger scroll-to-top rounded" href="#page-top"
+        ><i class="fa fa-angle-up"></i
+      ></a>
+    </footer>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/stylish-portfolio.js"></script>
+  </body>
+</html>
