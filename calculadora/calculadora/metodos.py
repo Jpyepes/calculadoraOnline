@@ -1,5 +1,7 @@
 from requests import request
 import math
+from sympy import *
+import numpy as np
 
 def Biseccion(Xi, Xs, Tol, Niter, Fun):
     Xi = int(Xi)
@@ -68,5 +70,82 @@ def Biseccion(Xi, Xs, Tol, Niter, Fun):
       #return alerta
       print("El intervalo es inadecuado")
 
-def Newton():
-  pass
+def PuntoFijo(X0, Tol, Niter, Fun, GFun):  
+  X0 = float(X0)
+  Tol = float(Tol)
+  Niter = int(Niter)
+
+  fn = []
+  xn = []
+  E = []
+  N = []
+  x = X0
+  f = eval(Fun)
+  c = 0
+  Error = 100               
+  fn.append(f)
+  xn.append(x)
+  E.append(Error)
+  N.append(c)
+
+  while Error > Tol and f != 0 and c < Niter:
+    x = eval(GFun)
+    fe = eval(Fun)
+    fn.append(fe)
+    xn.append(x)
+    c = c+1
+    Error = abs(xn[c]-xn[c-1])
+    N.append(c)
+    E.append(Error)	
+  if fe == 0:
+      s = x
+      print(s,"es raiz de f(x)")
+  elif Error < Tol:
+      s = x
+      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      return N, xn, fn, E
+  else:
+      s = x
+      print("Fracaso en ",Niter, " iteraciones ") 
+
+def Newton(X0, Tol, Niter, Fun):
+  DFun = diff(Fun, x) # poner la derivada
+  X0 = int(X0)
+  Tol = float(Tol)
+  Niter = int(Niter)
+
+  fn = []
+  xn = []
+  E = []
+  N = []
+  x = X0
+  f = eval(Fun)
+  derivada = eval(DFun)
+  c = 0
+  Error = 100               
+  fn.append(f)
+  xn.append(x)
+  E.append(Error)
+  N.append(c)
+
+  while Error>Tol and f!=0 and derivada!=0  and c<Niter:
+      x = x-f/derivada
+      derivada = eval(DFun)
+      f = eval(Fun)
+      fn.append(f)
+      xn.append(x)
+      c = c+1
+      Error = abs(xn[c]-xn[c-1])
+      N.append(c)
+      E.append(Error)
+  if f == 0:
+      s = x
+      print(s,"es raiz de f(x)")
+
+  elif Error < Tol:
+      s = x
+      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      return N, xn ,fn, E
+  else:
+      s = x
+      print("Fracaso en ",Niter, " iteraciones ")

@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Bisección</title>
+    <title>Punto fijo</title>
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -39,13 +39,14 @@
         "
       >
         <div class="container my-auto text-center">
-          <h1 class="mb-1" style="font-size: 50px">Bisección</h1>
+          <h1 class="mb-1" style="font-size: 50px">Punto fijo</h1>
           <h3 class="mb-5">
             <em style="font-size: 20.256px"
-              >En matemáticas, el método de bisección , también llamado
-              dicotomía, es un algoritmo de búsqueda de raíces que trabaja
-              dividiendo el intervalo a la mitad y seleccionando el subintervalo
-              que tiene la raíz.</em
+              >El método del punto fijo es un método iterativo que permite
+              resolver sistemas de ecuaciones no necesariamente lineales. En
+              particular se puede utilizar para determinar raíces de una función
+              de la forma f(x), siempre y cuando se cumplan los criterios de
+              convergencia.</em
             >
           </h3>
           <a
@@ -60,7 +61,7 @@
       <div class="d-flex justify-content-lg-center" style="margin-top: 60px">
         <form method="post">
           {% csrf_token %}
-          <h5>Funcion:</h5>
+          <h5>Funcion f(x):</h5>
           <input
             required
             class="form-control"
@@ -72,12 +73,12 @@
               border: 2px solid rgb(228, 180, 11);
             "
           />
-          <h5>Valor de intervalo inferior (a):</h5>
+          <h5>Funcion g(x):</h5>
           <input
             required
             class="form-control"
             type="text"
-            name="numeroMenor"
+            name="funciong"
             style="
               width: 325px;
               margin-top: 20px;
@@ -86,12 +87,12 @@
               border-radius: 4px;
             "
           />
-          <h5>Valor de intervalo superior (b):</h5>
+          <h5>Valor inicial (x0):</h5>
           <input
             required
             class="form-control"
             type="text"
-            name="numeroMayor"
+            name="valInicial"
             style="
               width: 325px;
               margin-top: 20px;
@@ -136,6 +137,7 @@
         <table class="styled-table">
           <tr class="active-row">
             <th>N</th>
+            <th>X(n)</th>
             <th>F(X)</th>
             <th>Error</th>
           </tr>
