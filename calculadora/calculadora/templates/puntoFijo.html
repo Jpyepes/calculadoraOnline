@@ -58,7 +58,8 @@
           >
         </div>
       </header>
-      <div class="d-flex justify-content-lg-center" style="margin-top: 60px">
+      <div class="containerBiseccion">
+      <div class="d-flex justify-content-lg-center"  id="containerInputBi">
         <form method="post">
           {% csrf_token %}
           <h5>Funcion f(x):</h5>
@@ -154,6 +155,7 @@
           {{Tol}}
         </h3>
       </div>
+    </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/stylish-portfolio.js' %}"></script>

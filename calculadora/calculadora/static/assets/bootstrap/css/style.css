@@ -39,7 +39,7 @@
 .divTablaResultados {
   width: min-content;
   margin: 0 auto;
-  margin-top: 50px;
+  /*margin-top: 50px;*/
 }
 
 h5 {
@@ -48,4 +48,15 @@ h5 {
 
 #seccionGrafica {
   background-color: #ecb807 !important;
+}
+.containerBiseccion{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 4em;
+  
+}
+#containerInputBi{
+  width: 40%;
+  margin-bottom: 2em;
 }

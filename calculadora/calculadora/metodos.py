@@ -1,4 +1,3 @@
-from requests import request
 import math
 from sympy import *
 import numpy as np
