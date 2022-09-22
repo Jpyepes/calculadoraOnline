@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from calculadora.views import index, pageBiseccion, pagePuntoFijo, pageNewton
+from calculadora.views import index, pageBiseccion, pagePuntoFijo, pageNewton, pageReglaFalsa,pageMetodoSecante
 from calculadora.metodos import Biseccion
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,6 @@ urlpatterns = [
     path('pageBiseccion/', pageBiseccion, name="pageBiseccion"),
     path('pagePuntoFijo/', pagePuntoFijo, name="pagePuntoFijo"), 
     path('pageNewton/', pageNewton, name="pageNewton"),
+    path('pageReglaFalsa/', pageReglaFalsa, name="pageReglaFalsa"),
+    path('pageMetodoSecante/', pageMetodoSecante, name="pageMetodoSecante"),
 ]

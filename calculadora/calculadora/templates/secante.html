@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <title>Método de la secante</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/bootstrap/css/style.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/fonts/font-awesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/fonts/simple-line-icons.min.css' %}"
+    />
+  </head>
+
+  <body>
+    <div>
+      <header
+        class="d-flex masthead"
+        style="
+          background-image: url('{% static 'assets/img/bg-masthead.jpg' %}');
+        "
+      >
+        <div class="container my-auto text-center">
+          <h1 class="mb-1" style="font-size: 50px">Método de la secante</h1>
+          <h3 class="mb-5">
+            <em style="font-size: 20.256px"
+              >En análisis numérico el método de la secante es un método para encontrar los ceros de una función de forma iterativa.
+                Es una variación del método de Newton-Raphson donde en vez de calcular la derivada de la función en el punto de estudio,
+               teniendo en mente la definición de derivada,se aproxima la pendiente a la recta que une la función evaluada en el punto de 
+               estudio y en el punto de la iteración anterior.</em
+            >
+          </h3>
+          <a
+            class="btn btn-dark btn-xl js-scroll-trigger"
+            role="button"
+            href="#services"
+            onclick="location.href='{% url 'index' %}'"
+            >Pagina principal</a
+          >
+        </div>
+      </header>
+      <div class="containerBiseccion">
+      <div class="d-flex justify-content-lg-center" id="containerInputBi" >
+        <form method="post">
+          {% csrf_token %}
+          <h5>Funcion f(x):</h5>
+          <input
+            required
+            class="form-control"
+            type="text"
+            name="funcion"
+            style="
+              width: 325px;
+              border-radius: 4px;
+              border: 2px solid rgb(228, 180, 11);
+            "
+          />
+          <h5>Valor inicial (x0):</h5>
+          <input
+            required
+            class="form-control"
+            type="text"
+            name="numeroMenor"
+            style="
+              width: 325px;
+              margin-top: 20px;
+              border: 2px solid rgb(228, 180, 11);
+              border-radius: 4px;
+            "
+          />
+          <h5>Valor inicial (x1):</h5>
+          <input
+            required
+            class="form-control"
+            type="text"
+            name="numeroMayor"
+            style="
+              width: 325px;
+              margin-top: 20px;
+              border: 2px solid rgb(228, 180, 11);
+              border-radius: 4px;
+            "
+          />
+          <h5>Tolerancia:</h5>
+          <input
+            required
+            class="form-control"
+            type="text"
+            name="tolerancia"
+            style="
+              margin-top: 20px;
+              border: 2px solid rgb(228, 180, 11);
+              border-radius: 4px;
+            "
+          />
+          <h5>Número de iteraciones:</h5>
+          <input
+            required
+            class="form-control"
+            type="text"
+            name="numIteraciones"
+            style="
+              margin-top: 20px;
+              border-radius: 4px;
+              border: 2px solid rgb(228, 180, 11);
+              margin-bottom: 15px;
+            "
+          /><button
+            class="btn btn-primary d-flex d-lg-flex justify-content-lg-center"
+            type="submit"
+            style="background: rgb(156, 84, 0)"
+          >
+            Evaluar
+          </button>
+        </form>
+      </div>
+      <div class="divTablaResultados">
+        <table class="styled-table">
+          <tr class="active-row">
+            <th>N</th>
+            <th>Xi</th>
+            <th>F(xi)</th>
+            <th>Error</th>
+          </tr>
+          {% if lista %} {% for dat in lista %}
+          <tr>
+            {% for valores in dat%}
+            <td>{{valores}} {% endfor%}</td>
+            {% endfor %}
+          </tr>
+          {% endif %}
+        </table>
+        <h3>
+          {{s}} es una aproximacion de na raiz de F(x) con una tolerancia de
+          {{Tol}}
+        </h3>
+      </div>
+    </div>
+    </div>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/stylish-portfolio.js' %}"></script>
+  </body>
+</html>

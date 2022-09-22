@@ -63,3 +63,9 @@ def pageNewton(request):
   if datos:
     return render(request, "newton.html", {"lista": filas})
   return render(request, "newton.html")
+  
+def pageReglaFalsa(request):
+    return render(request,"reglaFalsa.html")
+
+def pageMetodoSecante(request):
+    return render(request,"secante.html")

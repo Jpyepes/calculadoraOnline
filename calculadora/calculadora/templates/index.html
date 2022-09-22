@@ -24,6 +24,7 @@
       rel="stylesheet"
       href="{% static 'assets/fonts/simple-line-icons.min.css' %}"
     />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
   </head>
 
   <body id="page-top">
@@ -89,7 +90,7 @@
             <p class="lead mb-5">
               <span
                 >En este apartado encontraras todos los metodos para la solucion
-                de proplemas matematicos disponibles</span
+                de problemas matematicos disponibles</span
               >
             </p>
             <a
@@ -115,6 +116,22 @@
               onclick="location.href='{% url 'pageNewton' %}'"
               id="btnNewton"
               >Newton</a
+            >
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageReglaFalsa' %}'"
+              id="btnRF"
+              >Regla Falsa</a
+            >
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageMetodoSecante' %}'"
+              id="btnS"
+              >Secante</a
             >
           </div>
         </div>
