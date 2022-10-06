@@ -49,17 +49,36 @@ h5 {
 #seccionGrafica {
   background-color: #ecb807 !important;
 }
-.containerBiseccion{
+.containerBiseccion {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 4em;
-  
 }
-#containerInputBi{
+#containerInputBi {
   width: 40%;
   margin-bottom: 2em;
 }
 /*#btnS,#btnRF,#btnNewton,#btnPuntoFijo,#btnBiseccion{
   margin-left: 2em !important;
 }*/
+.grafica {
+  margin-top: 70px;
+}
+
+#imagenGrafica {
+  display: block;
+  margin: auto;
+}
+
+.tituloGrafica {
+  color: #343a40;
+  position: relative;
+  font-family: "Avenir Next", sans-serif;
+  text-align: center;
+  font-weight: 900;
+  font-size: 35px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: #f2bb05 0.1em 0.1em 0.1em;
+}

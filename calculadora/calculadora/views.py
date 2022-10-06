@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from calculadora.metodos import Biseccion, PuntoFijo, Newton
+from calculadora.metodos import Biseccion, PuntoFijo, Newton, ReglaFalsa, Secante
+import matplotlib.pyplot as plt
+import numpy as np
+from sympy import *
 
 def index(request):
   return render(request, "index.html")
@@ -33,6 +36,10 @@ def pagePuntoFijo(request):
     valorInicial = request.POST["valInicial"]
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
+
+    exp = sympify(funcion, convert_xor=True)
+    grafica = plot(exp, show = False)
+    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
     
     datos = PuntoFijo(valorInicial, tolerancia, numIteracciones, funcion, funciong)
     print(datos)
@@ -52,7 +59,11 @@ def pageNewton(request):
     valorInicial = request.POST["valInicial"]
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
-    
+
+    exp = sympify(funcion, convert_xor=True)
+    grafica = plot(exp, show = False)
+    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
     datos = Newton(valorInicial, tolerancia, numIteracciones, funcion)
     print(datos)
     n = len(datos[0])
@@ -65,7 +76,49 @@ def pageNewton(request):
   return render(request, "newton.html")
   
 def pageReglaFalsa(request):
-    return render(request,"reglaFalsa.html")
+  datos = ()
+  if request.method == 'POST':
+    funcion = request.POST["funcion"]
+    numeroMenor = request.POST["numeroMenor"]
+    numeroMayor = request.POST["numeroMayor"]
+    tolerancia = request.POST["tolerancia"]
+    numIteracciones = request.POST["numIteraciones"]
+
+    exp = sympify(funcion, convert_xor=True)
+    grafica = plot(exp, show = False)
+    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
+    datos = ReglaFalsa(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
+    print(datos)
+    n = len(datos[0])
+    filas = []
+    for i in range(n):
+      celdas = [datos[0][i],datos[1][i],datos[2][i],datos[3][i]] 
+      filas.append(celdas)
+  if datos:
+    return render(request, "reglaFalsa.html", {"lista": filas})
+  return render(request,"reglaFalsa.html")
 
 def pageMetodoSecante(request):
-    return render(request,"secante.html")
+  datos = ()
+  if request.method == 'POST':
+    funcion = request.POST["funcion"]
+    numeroMenor = request.POST["numeroMenor"]
+    numeroMayor = request.POST["numeroMayor"]
+    tolerancia = request.POST["tolerancia"]
+    numIteracciones = request.POST["numIteraciones"]
+
+    exp = sympify(funcion, convert_xor=True)
+    grafica = plot(exp, show = False)
+    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
+    datos = Secante(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
+    print(datos)
+    n = len(datos[0])
+    filas = []
+    for i in range(n):
+      celdas = [datos[0][i],datos[1][i],datos[2][i],datos[3][i]] 
+      filas.append(celdas)
+  if datos:
+    return render(request, "secante.html", {"lista": filas})
+  return render(request,"secante.html")

@@ -163,3 +163,155 @@ def Newton(X0, Tol, Niter, Fun):
   else:
       s = X
       print("Fracaso en ",Niter, " iteraciones ")
+
+def ReglaFalsa(X0, X1, Tol, Niter, Fun):
+  x,y = symbols("x y")
+  X0 = int(X0)
+  X1 = int(X1)
+  Tol = float(Tol)
+  Niter = int(Niter)
+  exp = sympify(Fun, convert_xor=True)
+
+  fm = []
+  val2 = []
+  E = []
+  ERelativo = []
+  N = []
+
+  fi = exp.evalf(subs={x:X0})
+  fs = exp.evalf(subs={x:X1})
+
+  c = 0
+  N.append(c)
+
+  if fi*fs == 0:
+    s = X0
+    E = 0
+    ERelativo = 0
+    print(X0, "es raiz de f(x)")
+
+  elif fi*fs <= 0:
+    Xm = X1 - (fs*(X0-X1))/(fi-fs)
+    val2.append(Xm)
+    fe = exp.evalf(subs={x:Xm})
+    fm.append(fe)
+
+    E.append(100)
+    ERelativo.append(100)
+    
+    while E[c] > Tol and fe != 0 and c < Niter and fi*fs < 0:
+      if fi*fe < 0:
+        X1 = Xm
+        fs = exp.evalf(subs={x:X1})
+      else:
+        X0 = Xm
+        fi = exp.evalf(subs={x:X0})
+      Xa = Xm
+      Xm = X1 - (fs*(X0-X1))/(fi-fs)
+      val2.append(Xm)
+      fe = exp.evalf(subs={x:Xm})
+      fm.append(fe)
+
+      Error = abs(Xm-Xa)
+      E.append(Error)
+      ErrorRelativo = abs((Xm-Xa)/Xm)
+      ERelativo.append(ErrorRelativo)
+
+      c = c+1
+      N.append(c)
+
+    if fe == 0:
+      s = x
+      print(s,"es raiz de f(x)")
+    elif Error < Tol:
+      s = x
+      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      return N,val2, fm, E
+    else:
+      s = x
+      print("Fracaso en ",Niter, " iteraciones ") 
+  else:
+    print("El intervalo es inadecuado")
+
+def Secante(X0, X1,Tol,Niter ,Fun):
+  x,y = symbols("x y")
+  exp = sympify(Fun, convert_xor=True)
+  X0 = float(X0)
+  X1 = float(X1)
+  Tol = float(Tol)
+  Niter = int(Niter)
+
+  exp = sympify(Fun, convert_xor=True)
+
+  fn = []
+  xn = []
+  E = []
+  ERelativo = []
+  N = []
+
+  #x = X0
+  f = exp.evalf(subs={x:X0})
+  fn.append(f)
+  xn.append(X0)
+
+  c = 0
+  Error = 100
+  ErrorRelativo = 100       
+  E.append(Error)
+  ERelativo.append(ErrorRelativo)
+  N.append(c)
+  ################################ iter 0 ##########################
+
+  #x = X1
+  f1 = exp.evalf(subs={x:X1})
+  fn.append(f1)
+  xn.append(X1)
+
+  c = c + 1
+  Error = 100
+  ErrorRelativo = 100   
+  E.append(Error)
+  ERelativo.append(ErrorRelativo)
+  N.append(c)
+
+  if f1 == 0 or f == 0:
+      s = X0
+      E = 0
+      ERelativo = 0
+      print(X0, "es raiz de f(x)")
+  ################################ iter 1 ##########################
+
+  fm = 1
+  while (Error > Tol) and (c < Niter) and (fm != 0):    
+      f = exp.evalf(subs={x:X0})
+      f1 = exp.evalf(subs={x:X1})
+
+      Xn = X1 - ((f1*(X1-X0))/(f1-f))
+      #x = Xn
+      fm = exp.evalf(subs={x:Xn})
+
+      fn.append(fm)
+      xn.append(Xn)
+      c = c+1
+
+      Error = abs(xn[c]-xn[c-1])
+      ErrorRelativo = abs((xn[c]-xn[c-1])/xn[c])
+      N.append(c)
+      E.append(Error)
+      ERelativo.append(ErrorRelativo)
+
+      X0 = X1
+      X1 = Xn
+
+  if f == 0:
+      s = X0
+      print(s,"es raiz de f(x)")
+
+  elif Error < Tol:
+      s = X0
+      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      return N, xn ,fn, E
+  else:
+      s = 1
+      print(E)
+      print("Fracaso en ",Niter, " iteraciones ") 
