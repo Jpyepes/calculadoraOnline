@@ -67,6 +67,7 @@
           <form method="post">
             {% csrf_token %}
             <div class="entradasMatriz">
+              <h4>Matriz</h4>
               <table>
                 {% for i in data%}
                 <tr>
@@ -80,6 +81,7 @@
               </table>
             </div>
             <div class="matrizResultados">
+              <h4>Vector resultados</h4>
               <table>
                 {% for i in data%}
                 <tr>
@@ -96,7 +98,7 @@
               style="background: rgb(156, 84, 0)"
               id="botonMatrices"
             >
-              Evaluar
+              Resolver sistema
             </button>
           </form>
         </div>

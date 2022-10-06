@@ -124,5 +124,8 @@ def pageMetodoSecante(request):
   return render(request,"secante.html")
 
 def pageGauss(request):
+  SistemaResuelto = ()
   datos = [1, 2, 3]
+  if request.method == 'POST':
+    pass
   return render(request, "gauss.html", {"data": datos})
