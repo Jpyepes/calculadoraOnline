@@ -24,7 +24,7 @@
       rel="stylesheet"
       href="{% static 'assets/fonts/simple-line-icons.min.css' %}"
     />
-    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
   </head>
 
   <body id="page-top">
@@ -132,6 +132,14 @@
               onclick="location.href='{% url 'pageMetodoSecante' %}'"
               id="btnS"
               >Secante</a
+            >
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageGauss' %}'"
+              id="btnS"
+              >Gauss</a
             >
           </div>
         </div>

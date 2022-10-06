@@ -82,3 +82,32 @@ h5 {
   letter-spacing: 0.05em;
   text-shadow: #f2bb05 0.1em 0.1em 0.1em;
 }
+
+.matriz {
+  margin-left: 30px;
+  margin-top: 15px;
+  border-radius: 4px;
+  border: 2px solid rgb(228, 180, 11);
+  margin-bottom: 15px;
+  height: 35px;
+  width: 55px;
+}
+
+.matrizResultados {
+  width: min-content;
+  margin: 0 auto;
+  display: inline-block;
+  margin-left: 60px;
+}
+
+.entradasMatriz {
+  display: inline-block;
+}
+
+#conjuntoMatriz {
+  display: inline-flex;
+}
+
+#botonMatrices {
+  margin-top: 40px;
+}

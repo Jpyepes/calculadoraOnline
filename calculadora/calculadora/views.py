@@ -122,3 +122,7 @@ def pageMetodoSecante(request):
   if datos:
     return render(request, "secante.html", {"lista": filas})
   return render(request,"secante.html")
+
+def pageGauss(request):
+  datos = [1, 2, 3]
+  return render(request, "gauss.html", {"data": datos})

@@ -240,7 +240,6 @@ def Secante(X0, X1,Tol,Niter ,Fun):
   X1 = float(X1)
   Tol = float(Tol)
   Niter = int(Niter)
-
   exp = sympify(Fun, convert_xor=True)
 
   fn = []
@@ -313,5 +312,39 @@ def Secante(X0, X1,Tol,Niter ,Fun):
       return N, xn ,fn, E
   else:
       s = 1
-      print(E)
       print("Fracaso en ",Niter, " iteraciones ") 
+
+def sustreg(Ab,n):
+	x = np.zeros(n)
+	x[n-1]=Ab[n-1][n]/Ab[n-1][n-1]
+	for i in range(n-2,-1,-1):
+		sum=0
+		for p in range(i+1,n):
+			sum=sum+Ab[i][p]*x[p]
+		x[i]=(Ab[i][n]-sum)/Ab[i][i]
+	return x
+
+
+def Gauss():
+  A = np.array([[1, -3, -5],[5, 7, -9],[-10, 4, 7]], dtype='float64')
+  n = len(A)
+  b = np.array(([[15],[-20],[-15]]), dtype='float64')
+  Piv = 0
+  Ab = np.zeros((3,4))
+  Ab = np.concatenate((A, b), axis = 1)
+  mark = list(range(n))
+
+  for k in range(0,n-1):
+    if Piv == 1:
+      print("pivoteo parcial")
+    elif Piv > 1:
+      print("pivoteo total")
+    for i in range(k+1,n):
+        M = Ab[i][k]/Ab[k][k]
+        for j in range(k,n+1):
+                Ab[i][j] = Ab[i][j]-M*Ab[k][j]
+  x = sustreg(Ab,n)
+  print(x)
+  print("mark =", mark)
+  print("Ab =", Ab)
+
