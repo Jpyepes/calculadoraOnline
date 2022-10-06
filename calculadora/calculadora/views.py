@@ -16,6 +16,10 @@ def pageBiseccion(request):
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
     
+    exp = sympify(funcion, convert_xor=True)
+    grafica = plot(exp, show = False)
+    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
     datos = Biseccion(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
     print(datos)
     n = len(datos[0])
