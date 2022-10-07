@@ -131,5 +131,9 @@ def pageGauss(request):
   SistemaResuelto = ()
   datos = [1, 2, 3]
   if request.method == 'POST':
-    pass
+    matriz = request.POST["entradaM"]
+    vector = request.POST["entradaV"]
+
+    print(matriz)
+    print(vector)
   return render(request, "gauss.html", {"data": datos})
