@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from calculadora.metodos import Biseccion, PuntoFijo, Newton, ReglaFalsa, Secante
+from calculadora.metodos import Biseccion, PuntoFijo, Newton, ReglaFalsa, Secante, Gauss
 import matplotlib.pyplot as plt
 import numpy as np
 from sympy import *
@@ -137,6 +137,8 @@ def pageGauss(request):
     matriz = request.POST["entradaM"]
     vector = request.POST["entradaV"]
 
+    vectorDatos =[]
+    Gauss(vectorDatos)
     print(matriz)
     print(vector)
   return render(request, "gauss.html", {"data": datos})
