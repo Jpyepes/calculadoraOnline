@@ -7,6 +7,9 @@ from sympy import *
 def index(request):
   return render(request, "index.html")
 
+def sobreNosotros(request):
+  return render(request, "sobreNosotros.html")
+
 def pageBiseccion(request):
   datos = ()
   if request.method == 'POST':

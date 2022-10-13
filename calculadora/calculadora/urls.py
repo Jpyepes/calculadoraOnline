@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from calculadora.views import index, pageBiseccion, pagePuntoFijo, pageNewton, pageReglaFalsa,pageMetodoSecante, pageGauss
+from calculadora.views import index, sobreNosotros, pageBiseccion, pagePuntoFijo, pageNewton, pageReglaFalsa,pageMetodoSecante, pageGauss
 from calculadora.metodos import Biseccion
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
+    path('sobreNosotros/', sobreNosotros, name="sobreNosotros"),
     path('pageBiseccion/', pageBiseccion, name="pageBiseccion"),
     path('pagePuntoFijo/', pagePuntoFijo, name="pagePuntoFijo"), 
     path('pageNewton/', pageNewton, name="pageNewton"),

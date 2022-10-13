@@ -324,7 +324,6 @@ def sustreg(Ab,n):
 		x[i]=(Ab[i][n]-sum)/Ab[i][i]
 	return x
 
-
 def Gauss():
   A = np.array([[1, -3, -5],[5, 7, -9],[-10, 4, 7]], dtype='float64')
   n = len(A)
