@@ -130,6 +130,13 @@ def pageMetodoSecante(request):
     return render(request, "secante.html", {"lista": filas})
   return render(request,"secante.html")
 
+def settingsGauss(request):
+  if request.method == 'POST':
+    tamaño = request.POST["tamañoMatriz"]
+    pivoteo = request.POST["tipoPivoteo"]
+    return render(request, "gauss.html")
+  return render(request, "settingsGauss.html")
+
 def pageGauss(request):
   SistemaResuelto = ()
   datos = [1, 2, 3]
