@@ -140,9 +140,61 @@
               class="btn btn-dark btn-xl js-scroll-trigger"
               role="button"
               href="#services"
-              onclick="location.href='{% url 'settingsGauss' %}'"
+              onclick="location.href='{% url 'pageGauss' %}'"
               id="btnS"
               >Gauss</a
+            >
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageFactorizacionLU' %}'"
+              id="btnS"
+              >Factorizacion LU</a
+            >
+            <br />
+            <br />
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageSOR' %}'"
+              id="btnS"
+              >SOR</a
+            >
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageJacobiGauss' %}'"
+              id="btnS"
+              >JacobiGauss-Seidel</a
+            >
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageCDC' %}'"
+              id="btnS"
+              >Doolittle-crout-cholesky</a
+            >
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageVandermonde' %}'"
+              id="btnS"
+              >Vandermonde</a
+            >
+            <br />
+            <br />
+            <a
+              class="btn btn-dark btn-xl js-scroll-trigger"
+              role="button"
+              href="#services"
+              onclick="location.href='{% url 'pageSpline' %}'"
+              id="btnS"
+              >Spline</a
             >
           </div>
         </div>
@@ -161,7 +213,12 @@
         <h2 class="mx-auto mb-5">
           <span>¡Grafica tus funciones!</span>
         </h2>
-        <a class="btn btn-primary btn-xl" role="button" href="#">Graficar</a>
+        <a
+          class="btn btn-primary btn-xl"
+          role="button"
+          onclick="location.href='{% url 'pageGraficas' %}'"
+          >Graficar</a
+        >
       </div>
     </section>
     <section class="content-section bg-primary text-white">

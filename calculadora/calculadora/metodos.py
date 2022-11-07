@@ -69,7 +69,7 @@ def Biseccion(Xi, Xs, Tol, Niter, Fun):
       #return alerta
       print("El intervalo es inadecuado")
 
-def PuntoFijo(X0, Tol, Niter, Fun, GFun): 
+def PuntoFijo(X0, Tol, Niter, Fun, GFun, tipoDeError): 
   x,y = symbols("x y") 
   X0 = float(X0)
   Tol = float(Tol)
@@ -81,15 +81,18 @@ def PuntoFijo(X0, Tol, Niter, Fun, GFun):
   xn = []
   E = []
   N = []
+  ERelativo = []
   X = X0
   #x = X0
   #f = eval(Fun)
   f = exp.subs(x,X)
   c = 0
-  Error = 100               
+  Error = 100  
+  ErrorRelativo = 100                
   fn.append(f)
   xn.append(X)
   E.append(Error)
+  ERelativo.append(ErrorRelativo)
   N.append(c)
 
   while Error > Tol and f != 0 and c < Niter:
@@ -104,6 +107,8 @@ def PuntoFijo(X0, Tol, Niter, Fun, GFun):
     Error = abs(xn[c]-xn[c-1])
     N.append(c)
     E.append(Error)	
+    ErrorRelativo = abs((xn[c] - xn[c-1])/xn[c])
+    ERelativo.append(ErrorRelativo)
 
   if fe == 0:
       s = X
@@ -111,12 +116,15 @@ def PuntoFijo(X0, Tol, Niter, Fun, GFun):
   elif Error < Tol:
       s = X
       print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
-      return N, xn, fn, E
+      if tipoDeError == 'Error absoluto':
+        return N, xn, fn, E
+      else:
+        return N, xn, fn, ERelativo 
   else:
       s = X
       print("Fracaso en ",Niter, " iteraciones ") 
 
-def Newton(X0, Tol, Niter, Fun):
+def Newton(X0, Tol, Niter, Fun, tipoDeError):
   x,y = symbols("x y")
   exp = sympify(Fun, convert_xor=True)
   DFun = diff(exp, x) # poner la derivada
@@ -129,16 +137,19 @@ def Newton(X0, Tol, Niter, Fun):
   xn = []
   E = []
   N = []
+  ERelativo = []
   X = X0
   #x = X0
   #f = eval(Fun)
   f = exp.subs(x,X0)
   derivada = DFun.subs(x, X0)
   c = 0
-  Error = 100               
+  Error = 100      
+  ErrorRelativo = 100            
   fn.append(f)
   xn.append(X0)
   E.append(Error)
+  ERelativo.append(ErrorRelativo)
   N.append(c)
 
   while Error>Tol and f!=0 and derivada!=0  and c<Niter:
@@ -152,6 +163,8 @@ def Newton(X0, Tol, Niter, Fun):
       Error = abs(xn[c]-xn[c-1])
       N.append(c)
       E.append(Error)
+      ErrorRelativo = abs((xn[c]-xn[c-1])/xn[c])
+      ERelativo.append(ErrorRelativo)
   if f == 0:
       s = X
       print(s,"es raiz de f(x)")
@@ -159,12 +172,16 @@ def Newton(X0, Tol, Niter, Fun):
   elif Error < Tol:
       s = X
       print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
-      return N, xn ,fn, E
+      print(tipoDeError)
+      if tipoDeError == 'Error absoluto':
+        return N, xn ,fn, E
+      else: 
+        return N, xn ,fn, ERelativo
   else:
       s = X
       print("Fracaso en ",Niter, " iteraciones ")
 
-def ReglaFalsa(X0, X1, Tol, Niter, Fun):
+def ReglaFalsa(X0, X1, Tol, Niter, Fun, tipoDeError):
   x,y = symbols("x y")
   X0 = int(X0)
   X1 = int(X1)
@@ -226,14 +243,17 @@ def ReglaFalsa(X0, X1, Tol, Niter, Fun):
     elif Error < Tol:
       s = x
       print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
-      return N,val2, fm, E
+      if tipoDeError == 'Error absoluto':
+        return N,val2, fm, E
+      else:
+        return N, val2, fm, ERelativo
     else:
       s = x
       print("Fracaso en ",Niter, " iteraciones ") 
   else:
     print("El intervalo es inadecuado")
 
-def Secante(X0, X1,Tol,Niter ,Fun):
+def Secante(X0, X1,Tol,Niter ,Fun, tipoDeError):
   x,y = symbols("x y")
   exp = sympify(Fun, convert_xor=True)
   X0 = float(X0)
@@ -248,7 +268,6 @@ def Secante(X0, X1,Tol,Niter ,Fun):
   ERelativo = []
   N = []
 
-  #x = X0
   f = exp.evalf(subs={x:X0})
   fn.append(f)
   xn.append(X0)
@@ -259,9 +278,7 @@ def Secante(X0, X1,Tol,Niter ,Fun):
   E.append(Error)
   ERelativo.append(ErrorRelativo)
   N.append(c)
-  ################################ iter 0 ##########################
 
-  #x = X1
   f1 = exp.evalf(subs={x:X1})
   fn.append(f1)
   xn.append(X1)
@@ -278,7 +295,6 @@ def Secante(X0, X1,Tol,Niter ,Fun):
       E = 0
       ERelativo = 0
       print(X0, "es raiz de f(x)")
-  ################################ iter 1 ##########################
 
   fm = 1
   while (Error > Tol) and (c < Niter) and (fm != 0):    
@@ -309,7 +325,10 @@ def Secante(X0, X1,Tol,Niter ,Fun):
   elif Error < Tol:
       s = X0
       print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
-      return N, xn ,fn, E
+      if tipoDeError == 'Error absoluto':
+        return N, xn ,fn, E
+      else:
+        return N, xn ,fn, ERelativo
   else:
       s = 1
       print("Fracaso en ",Niter, " iteraciones ") 
@@ -324,11 +343,13 @@ def sustreg(Ab,n):
 		x[i]=(Ab[i][n]-sum)/Ab[i][i]
 	return x
 
-def Gauss():
-  A = np.array([[1, -3, -5],[5, 7, -9],[-10, 4, 7]], dtype='float64')
+def Gauss(A, b, Piv):
+  print(A)
+  print(b)
+  A = np.array(A, dtype='float64')
   n = len(A)
-  b = np.array(([[15],[-20],[-15]]), dtype='float64')
-  Piv = 0
+  b = np.array((b), dtype='float64')
+  #Piv = 0
   Ab = np.zeros((3,4))
   Ab = np.concatenate((A, b), axis = 1)
   mark = list(range(n))
@@ -346,4 +367,4 @@ def Gauss():
   print(x)
   print("mark =", mark)
   print("Ab =", Ab)
-
+  return f'Vector resultados : {x} \n Ab = {Ab}'

@@ -39,18 +39,10 @@
         "
       >
         <div class="container my-auto text-center">
-          <h1 class="mb-1" style="font-size: 50px">Gauss</h1>
+          <h1 class="mb-1" style="font-size: 50px">Vandemonde</h1>
           <h3 class="mb-5">
             <em style="font-size: 20.256px"
-              >En álgebra lineal, la eliminación de Gauss-Jordan, llamada así en
-              honor de Carl Friedrich Gauss y Wilhelm Jordan, es un algoritmo
-              que se usa para determinar la inversa de una matriz y las
-              soluciones de un sistema de ecuaciones lineales. Un sistema de
-              ecuaciones se resuelve por el método de Gauss cuando se obtienen
-              sus soluciones mediante la reducción del sistema dado a otro
-              equivalente en el que cada ecuación tiene una incógnita menos que
-              la anterior. El método de Gauss-Jordan continúa el proceso de
-              transformación hasta obtener una matriz diagonal</em
+              >El metodo de vandermonde</em
             >
           </h3>
           <a
@@ -66,35 +58,22 @@
         <div class="d-flex justify-content-lg-center" id="conjuntoMatriz">
           <form method="post">
             {% csrf_token %}
-            <h5>Ingrese la matriz</h5>
+            <h5>Ingrese los valores de x</h5>
             <input
               required
               class="entradaTamaño"
               type="text"
               id="entradaAjustesGauss"
-              name="matrizA"
+              name="valoresX"
             />
-            <h5>Ingrese el vector b</h5>
+            <h5>Ingrese los valores de y</h5>
             <input
               required
               class="entradaTamaño"
               type="text"
               id="entradaAjustesGauss"
-              name="matrizB"
-            />
-            <h5>Ingrese el tipo de pivoteo</h5>
-            <select required name="tipoPivoteo" id="pivoteo">
-              <option name="sinPivoteo">0</option>
-              <option name="pivoteoParcial">1</option>
-              <option name="pivoteoTotal">2</option>
-            </select>
-
-            <p class="notaPivoteo">
-              <strong>Recuerde:</strong><br />
-              Seleccione 1 para sin pivoteo<br />
-              Seleccione 2 para pivoteo parcial<br />
-              Seleccione 3 para pivoteo total
-            </p>
+              name="valoresY"
+            />          
             <button
               class="btn btn-primary d-flex d-lg-flex justify-content-lg-center"
               type="submit"

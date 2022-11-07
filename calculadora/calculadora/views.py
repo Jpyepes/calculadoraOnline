@@ -3,6 +3,8 @@ from calculadora.metodos import Biseccion, PuntoFijo, Newton, ReglaFalsa, Secant
 import matplotlib.pyplot as plt
 import numpy as np
 from sympy import *
+import ast
+import matlab.engine
 
 def index(request):
   return render(request, "index.html")
@@ -43,12 +45,13 @@ def pagePuntoFijo(request):
     valorInicial = request.POST["valInicial"]
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
+    tipoDeError = request.POST["tipoDeError"]
 
     exp = sympify(funcion, convert_xor=True)
     grafica = plot(exp, show = False)
     grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
     
-    datos = PuntoFijo(valorInicial, tolerancia, numIteracciones, funcion, funciong)
+    datos = PuntoFijo(valorInicial, tolerancia, numIteracciones, funcion, funciong, tipoDeError)
     print(datos)
     n = len(datos[0])
     filas = []
@@ -66,12 +69,13 @@ def pageNewton(request):
     valorInicial = request.POST["valInicial"]
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
+    tipoDeError = request.POST["tipoDeError"]
 
     exp = sympify(funcion, convert_xor=True)
     grafica = plot(exp, show = False)
     grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = Newton(valorInicial, tolerancia, numIteracciones, funcion)
+    datos = Newton(valorInicial, tolerancia, numIteracciones, funcion, tipoDeError)
     print(datos)
     n = len(datos[0])
     filas = []
@@ -90,12 +94,13 @@ def pageReglaFalsa(request):
     numeroMayor = request.POST["numeroMayor"]
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
+    tipoDeError = request.POST["tipoDeError"]
 
     exp = sympify(funcion, convert_xor=True)
     grafica = plot(exp, show = False)
     grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = ReglaFalsa(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
+    datos = ReglaFalsa(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
     print(datos)
     n = len(datos[0])
     filas = []
@@ -114,12 +119,13 @@ def pageMetodoSecante(request):
     numeroMayor = request.POST["numeroMayor"]
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
+    tipoDeError = request.POST["tipoDeError"]
 
     exp = sympify(funcion, convert_xor=True)
     grafica = plot(exp, show = False)
     grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = Secante(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
+    datos = Secante(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
     print(datos)
     n = len(datos[0])
     filas = []
@@ -139,13 +145,105 @@ def settingsGauss(request):
 
 def pageGauss(request):
   SistemaResuelto = ()
-  datos = [1, 2, 3]
+  datos = ()
   if request.method == 'POST':
-    matriz = request.POST["entradaM"]
-    vector = request.POST["entradaV"]
+    matrizA = request.POST["matrizA"]
+    matrizB = request.POST["matrizB"]
+    tipoPivoteo = request.POST["tipoPivoteo"]
 
-    vectorDatos =[]
-    Gauss(vectorDatos)
-    print(matriz)
-    print(vector)
-  return render(request, "gauss.html", {"data": datos})
+    matrizA = ast.literal_eval(matrizA)
+    matrizA = [list(x) for x in matrizA]
+    matrizB = ast.literal_eval(matrizB)
+    matrizB = [list(x) for x in matrizB]
+    datos = Gauss(matrizA, matrizB, int(tipoPivoteo))
+  
+  if datos:
+    return render(request, "gauss.html", {"data": datos})
+  return render(request, "gauss.html")
+
+def pageFactorizacionLU(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    matrizA = request.POST["matrizA"]
+    matrizB = request.POST["matrizB"]
+    tamaño = request.POST["tamañoMatrizA"]
+    tipoFactorizacion = request.POST["tipoFactorizacion"]
+    datos = eng.LU(matrizA, matrizB, int(tamaño), int(tipoFactorizacion), nargout=3)
+    print(datos)
+  if datos:
+    return render(request, "factorizacionLU.html", {"data": datos})
+  return render(request, "factorizacionLU.html")
+
+def pageSOR(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    matrizA = request.POST["matrizA"]
+    matrizB = request.POST["matrizB"]
+    matrizX0 = request.POST["matrizX0"]
+    tolerancia = request.POST["tolerancia"]
+    numIteraciones = request.POST["numIteraciones"]
+    valorW = request.POST["valorW"]
+    datos = eng.SOR(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), float(valorW), nargout=3)
+    print(datos)
+  if datos:
+    return render(request, "sor.html", {"data": datos})
+  return render(request, "sor.html")
+
+def pageJacobiGauss(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    matrizA = request.POST["matrizA"]
+    matrizB = request.POST["matrizB"]
+    matrizX0 = request.POST["matrizX0"]
+    tolerancia = request.POST["tolerancia"]
+    numIteraciones = request.POST["numIteraciones"]
+    metodo = request.POST["tipoMetodo"]
+    datos = eng.MatJacobiSeid(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), int(metodo), nargout=3)
+    print(datos)
+  if datos:
+    return render(request, "jacobiGauss.html", {"data": datos})
+  return render(request, "jacobiGauss.html")
+
+def pageCDC(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    matrizA = request.POST["matrizA"]
+    matrizB = request.POST["matrizB"]
+    metodo = request.POST["tipoMetodo"]
+    datos = eng.directLU(matrizA, int(metodo), nargout=2)
+    print(datos)
+  if datos:
+    return render(request, "croDooCho.html", {"data": datos})
+  return render(request, "croDooCho.html")
+
+def pageVandermonde(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    valoresX = request.POST["valoresX"]
+    valoresY = request.POST["valoresY"]
+    datos = eng.vandermonde(valoresX, valoresY, nargout=2)
+    print(datos)
+  if datos:
+    return render(request, "vandermonde.html", {"data": datos})
+  return render(request, "vandermonde.html")
+
+def pageSpline(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    valoresX = request.POST["valoresX"]
+    valoresY = request.POST["valoresY"]
+    tipoDeSpline = request.POST["tipoDeSpline"]
+    datos = eng.Spline(valoresX, valoresY, int(tipoDeSpline))
+    print(datos)
+  if datos:
+    return render(request, "spline.html", {"data": datos})
+  return render(request, "spline.html")
+
+def pageGraficas(request):
+  return render(request, 'graficas.html') 
