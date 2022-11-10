@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Gauss</title>
+    <title>Gráficas</title>
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -42,7 +42,7 @@
           <h1 class="mb-1" style="font-size: 50px">¡Grafica fus funciones!</h1>
           <h3 class="mb-5">
             <em style="font-size: 20.256px"
-              >En este apartado de la pagina podras graficar tus funciones de manera facil y senscilla.</em
+              >En este apartado de la página podrás graficar tus funciones.</em
             >
           </h3>
           <a
@@ -50,7 +50,7 @@
             role="button"
             href="#services"
             onclick="location.href='{% url 'index' %}'"
-            >Pagina principal</a
+            >Página principal</a
           >
         </div>
       </header>
@@ -58,7 +58,7 @@
         <div class="d-flex justify-content-lg-center" id="conjuntoMatriz">
           <form method="post">
             {% csrf_token %}
-            <h5>Ingrese la funcion a graficar</h5>
+            <h5>Ingrese la función a graficar</h5>
             <input
               required
               class="entradaTamaño"
@@ -77,7 +77,7 @@
           </form>
         </div>
         <div class="grafica">
-          <h1 class="tituloGrafica">Grafica de la función:</h1>
+          <h1 class="tituloGrafica">Gráfica de la función:</h1>
           <img
             src="{% static 'assets/img/GraficaSYM.jpg' %}"
             id="imagenGrafica"

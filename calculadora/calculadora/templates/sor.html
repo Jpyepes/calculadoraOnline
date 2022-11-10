@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Gauss</title>
+    <title>SOR</title>
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -50,10 +50,14 @@
             role="button"
             href="#services"
             onclick="location.href='{% url 'index' %}'"
-            >Pagina principal</a
+            >Página principal</a
           >
         </div>
       </header>
+      <p class="notaGaussAdelante"><strong>Nota: </strong>ejemplo de ingreso de la matriz: [[2, 3, 4]; [4, 4, 2]; [5, 3, 4]].</br>
+        ejemplo de ingreso del vector: [2; 5; 7].
+      </p>
+      <div class="lineaNota"></div>
       <div class="containerBiseccion">
         <div class="d-flex justify-content-lg-center" id="conjuntoMatriz">
           <form method="post">
@@ -112,13 +116,13 @@
               class="btn btn-primary d-flex d-lg-flex justify-content-lg-center"
               type="submit"
               style="background: rgb(156, 84, 0)"
-              id="botonMatrices"
+              id="botonRebelde"
             >
               Resolver sistema
             </button>
           </form>
         </div>
-        <div>
+        <div class="containerRespuesta">
             {% if data %} 
               <p>{{data}}</p>
             {% endif %}

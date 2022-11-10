@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Gauss</title>
+    <title>Spline</title>
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -42,7 +42,9 @@
           <h1 class="mb-1" style="font-size: 50px">Spline</h1>
           <h3 class="mb-5">
             <em style="font-size: 20.256px"
-              >El metodo de Spline</em
+              >En los problemas de interpolación, se utiliza a menudo la interpolación mediante splines
+               porque da lugar a resultados similares requiriendo solamente el uso de polinomios de bajo grado, evitando así las oscilaciones,
+               indeseables en la mayoría de las aplicaciones, encontradas al interpolar mediante polinomios de grado elevado.</em
             >
           </h3>
           <a
@@ -50,10 +52,14 @@
             role="button"
             href="#services"
             onclick="location.href='{% url 'index' %}'"
-            >Pagina principal</a
+            >Página principal</a
           >
         </div>
       </header>
+      <p class="notaGaussAdelante"><strong>Nota: </strong>ejemplo de ingreso de la matriz: [[2, 3, 4]; [4, 4, 2]; [5, 3, 4]].</br>
+        ejemplo de ingreso del vector: [2; 5; 7].
+      </p>
+      <div class="lineaNota"></div>
       <div class="containerBiseccion">
         <div class="d-flex justify-content-lg-center" id="conjuntoMatriz">
           <form method="post">
@@ -74,7 +80,7 @@
               id="entradaAjustesGauss"
               name="valoresY"
             />      
-            <h5>Ingrese el tipo de Sline</h5>
+            <h5>Ingrese el tipo de Spline</h5>
             <input
               required
               class="entradaTamaño"
@@ -86,8 +92,8 @@
             <p class="notaPivoteo">
               <strong>Recuerde:</strong><br />
               Seleccione 1 para Spline lineal<br />
-              Seleccione 2 para Spline cuadratico<br />
-              Seleccione 3 para Spline cubico
+              Seleccione 2 para Spline cuadrático<br />
+              Seleccione 3 para Spline cúbico
             </p>    
             <button
               class="btn btn-primary d-flex d-lg-flex justify-content-lg-center"
@@ -99,7 +105,7 @@
             </button>
           </form>
         </div>
-        <div>
+        <div class="containerRespuesta">
             {% if data %} 
               <p>{{data}}</p>
             {% endif %}

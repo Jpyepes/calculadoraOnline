@@ -40,7 +40,7 @@
       >
         <div class="container my-auto text-center">
           <h1 class="mb-1" style="font-size: 50px">Gauss</h1>
-          <h3 class="mb-5">
+          <h3 class="mb-5" >
             <em style="font-size: 20.256px"
               >En álgebra lineal, la eliminación de Gauss-Jordan, llamada así en
               honor de Carl Friedrich Gauss y Wilhelm Jordan, es un algoritmo
@@ -58,11 +58,15 @@
             role="button"
             href="#services"
             onclick="location.href='{% url 'index' %}'"
-            >Pagina principal</a
+            >Página principal</a
           >
         </div>
       </header>
-      <div class="containerBiseccion">
+      <p class="notaGaussAdelante"><strong>Nota: </strong>ejemplo de ingreso de la matriz: [1, -3, -5],[5, 7, -9],[-10, 4, 7].</br>
+        ejemplo de ingreso del vector: [15],[-20],[-15].
+      </p>
+      <div class="lineaNota"></div>
+      <div class="containerGauss">
         <div class="d-flex justify-content-lg-center" id="conjuntoMatriz">
           <form method="post">
             {% csrf_token %}
@@ -91,9 +95,9 @@
 
             <p class="notaPivoteo">
               <strong>Recuerde:</strong><br />
-              Seleccione 1 para sin pivoteo<br />
-              Seleccione 2 para pivoteo parcial<br />
-              Seleccione 3 para pivoteo total
+              Seleccione 0 para sin pivoteo<br />
+              Seleccione 1 para pivoteo parcial<br />
+              Seleccione 2 para pivoteo total
             </p>
             <button
               class="btn btn-primary d-flex d-lg-flex justify-content-lg-center"
@@ -105,7 +109,7 @@
             </button>
           </form>
         </div>
-        <div>
+        <div class="containerRespuesta">
             {% if data %} 
               <p>{{data}}</p>
             {% endif %}

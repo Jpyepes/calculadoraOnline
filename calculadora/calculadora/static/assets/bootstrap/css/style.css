@@ -54,11 +54,19 @@ h5 {
   flex-direction: row;
   justify-content: space-evenly;
   margin-top: 4em;
+  max-width: 100%;
 }
 #containerInputBi {
   width: 40%;
   margin-bottom: 2em;
 }
+.containerGauss {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 4em;
+}
+
 /*#btnS,#btnRF,#btnNewton,#btnPuntoFijo,#btnBiseccion{
   margin-left: 2em !important;
 }*/
@@ -106,12 +114,31 @@ h5 {
 
 #conjuntoMatriz {
   display: inline-flex;
+  width: 70%;
+  justify-content: center;
 }
-
+#conjuntoMatriz > form {
+  text-align: center;
+  width: 80%;
+}
+.entradaTamaño {
+  width: 15em !important;
+}
+.containerRespuesta {
+  text-align: center;
+  width: 60%;
+}
+.containerRespuesta > p {
+  max-width: 60% !important;
+  display: inline-block;
+  word-wrap: break-word;
+}
 #botonMatrices {
-  margin-top: 40px;
+  margin: auto;
 }
-
+#botonRebelde {
+  margin: 1em auto;
+}
 #imagenSobreNosotros {
   margin-top: 90px;
   width: 400px;
@@ -141,4 +168,14 @@ h5 {
 
 .notaPivoteo {
   margin-top: 10px;
+}
+.notaGaussAdelante {
+  margin-top: 2em;
+  text-align: center;
+}
+.lineaNota {
+  width: 80%;
+  height: 1px;
+  background-color: #343a4025;
+  margin: 0px auto;
 }

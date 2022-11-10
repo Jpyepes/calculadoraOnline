@@ -54,7 +54,7 @@
             role="button"
             href="#services"
             onclick="location.href='{% url 'index' %}'"
-            >Pagina principal</a
+            >Página principal</a
           >
         </div>
       </header>
@@ -62,7 +62,7 @@
         <div class="d-flex justify-content-lg-center" id="containerInputBi">
           <form method="post">
             {% csrf_token %}
-            <h5>Funcion f(x):</h5>
+            <h5>Función f(x):</h5>
             <input
               required
               class="form-control"
@@ -75,7 +75,7 @@
                 border: 2px solid rgb(228, 180, 11);
               "
             />
-            <h5>Funcion g(x):</h5>
+            <h5>Función g(x):</h5>
             <input
               required
               class="form-control"
@@ -117,7 +117,7 @@
                 border-radius: 4px;
               "
             />
-            <h5>Numero de iteraciones:</h5>
+            <h5>Número de iteraciones:</h5>
             <input
               required
               class="form-control"
@@ -162,13 +162,13 @@
             {% endif %}
           </table>
           <h3>
-            {{s}} es una aproximacion de na raiz de F(x) con una tolerancia de
+            {{s}} es una aproximación de na raiz de F(x) con una tolerancia de
             {{Tol}}
           </h3>
         </div>
       </div>
       <div class="grafica">
-        <h1 class="tituloGrafica">Grafica de la función:</h1>
+        <h1 class="tituloGrafica">Gráfica de la función:</h1>
         <img
           src="{% static 'assets/img/GraficaSYM.jpg' %}"
           id="imagenGrafica"
