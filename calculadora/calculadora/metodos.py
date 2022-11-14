@@ -1,6 +1,9 @@
 import math
 from sympy import *
 import numpy as np
+import sympy as sym
+from sympy.abc import x as xmul
+
 
 def Biseccion(Xi, Xs, Tol, Niter, Fun):
     x,y = symbols("x y")
@@ -367,4 +370,81 @@ def Gauss(A, b, Piv):
   print(x)
   print("mark =", mark)
   print("Ab =", Ab)
-  return f'Vector resultados : {x} \n Ab = {Ab}'
+  return x, Ab
+
+def RaicesMultiples(X0, Tol, Niter, Fun, DFun, DFun2, tipoDeError):
+  x = xmul
+  
+  X0 = float(X0)
+  Tol = float(Tol)
+  Niter = int(Niter)
+
+  Fun = sympify(Fun, convert_xor=True)
+  DFun = sympify(DFun, convert_xor=True) 
+  DFun2 = sympify(DFun2, convert_xor=True)
+
+  fn = []
+  xn = []
+  E = []
+  N = []
+  ERelativo = []
+
+  f = Fun.evalf(subs={x:X0})
+  derivada = DFun.evalf(subs={x:X0})
+  derivada2 = DFun2.evalf(subs={x:X0})
+
+  c = 0
+  Error = 100    
+  ErrorRelativo = 100           
+  fn.append(f)
+
+  xn.append(X0)
+  E.append(Error)
+  ERelativo.append(ErrorRelativo)
+  N.append(c)
+
+  X = X0 - ((f*derivada)/((derivada)**2 - f * derivada2))
+  f = Fun.evalf(subs={x:X})
+  derivada = DFun.evalf(subs={x:X})
+  derivada2 = DFun2.evalf(subs={x:X})
+
+  print(f'Funcion evaluada 2: {f}')
+
+  fn.append(f)
+  xn.append(X)
+  c = c+1
+  Error = abs(xn[c]-xn[c-1])
+  ErrorRelativo = abs((xn[c]-xn[c-1])/xn[c])
+  E.append(Error)
+  ERelativo.append(ErrorRelativo)
+  N.append(c)
+
+  while Error>Tol and f!=0 and c<Niter:
+      X0 = X
+      f = Fun.evalf(subs={x:X0})
+      derivada = DFun.evalf(subs={x:X0})
+      derivada2 = DFun2.evalf(subs={x:X0})
+
+      X = X0 - ((f*derivada)/(derivada**2 - f * derivada2))
+      fn.append(f)
+      xn.append(X)
+
+      c = c+1
+      Error = abs(xn[c]-xn[c-1])
+      ErrorRelativo = abs((xn[c]-xn[c-1])/xn[c])
+      N.append(c)
+      E.append(Error)
+      ERelativo.append(ErrorRelativo)
+  if f == 0:
+      s = X
+      print(s,"es raiz de f(x)")
+  elif Error < Tol:
+      s = X
+      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      if tipoDeError == 'Error absoluto':
+        return N, xn ,fn, E
+      else:
+        return N, xn ,fn, ERelativo
+  else:
+      s = X
+      print("Fracaso en ",Niter, " iteraciones ")

@@ -126,6 +126,20 @@
             {% if data %} 
               <p>{{data}}</p>
             {% endif %}
+            {% if data %}
+            <table class="styled-table">
+              <tr class="active-row" >
+                <th colspan = "{{data.0|length}}">Resultado matriz </th>
+              </tr>
+                {% for val in data.1%}
+                    <tr >
+                      {% for num in val%}
+                      <td>{{num}}</td>
+                      {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
       </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>

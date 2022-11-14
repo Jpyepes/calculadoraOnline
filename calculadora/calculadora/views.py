@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from calculadora.metodos import Biseccion, PuntoFijo, Newton, ReglaFalsa, Secante, Gauss
+from calculadora.metodos import Biseccion, PuntoFijo, Newton, ReglaFalsa, Secante, Gauss,RaicesMultiples
 import matplotlib.pyplot as plt
 import numpy as np
 from sympy import *
@@ -85,6 +85,32 @@ def pageNewton(request):
   if datos:
     return render(request, "newton.html", {"lista": filas})
   return render(request, "newton.html")
+
+def pageRaicesMultiples(request):
+  datos = ()
+  if request.method == 'POST':
+    funcion = request.POST["funcion"]
+    derivada = request.POST["derivada"]
+    derivada2 = request.POST["derivada2"]
+    valorInicial = request.POST["valInicial"]
+    tolerancia = request.POST["tolerancia"]
+    numIteracciones = request.POST["numIteraciones"]
+    tipoDeError = request.POST["tipoDeError"]
+
+    exp = sympify(funcion, convert_xor=True)
+    grafica = plot(exp, show = False)
+    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
+    datos = RaicesMultiples(valorInicial, tolerancia, numIteracciones, funcion, derivada, derivada2,tipoDeError)
+    print(datos)
+    n = len(datos[0])
+    filas = []
+    for i in range(n):
+      celdas = [datos[0][i],datos[1][i],datos[2][i],datos[3][i]] 
+      filas.append(celdas)
+  if datos:
+    return render(request, "raicesMultiples.html", {"lista": filas})
+  return render(request, "raicesMultiples.html")
   
 def pageReglaFalsa(request):
   datos = ()
@@ -245,5 +271,34 @@ def pageSpline(request):
     return render(request, "spline.html", {"data": datos})
   return render(request, "spline.html")
 
+def pageLagrange(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    valoresX = request.POST["valoresX"]
+    valoresY = request.POST["valoresY"]
+    datos = eng.Lagrange(valoresX, valoresY)
+    print(datos)
+  if datos:
+    return render(request, "lagrange.html", {"data": datos})
+  return render(request, "lagrange.html")
+
+def pageNewtonint(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
+  if request.method == 'POST':
+    valoresX = request.POST["valoresX"]
+    valoresY = request.POST["valoresY"]
+    datos = eng.Newtonint(valoresX, valoresY, nargout=2)
+    print(datos)
+  if datos:
+    return render(request, "newtonint.html", {"data": datos})
+  return render(request, "newtonint.html")
+
 def pageGraficas(request):
+  if request.method == 'POST':
+    funcion = request.POST["funcion"]
+    exp = sympify(funcion, convert_xor=True)
+    grafica = plot(exp, show = False)
+    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
   return render(request, 'graficas.html') 

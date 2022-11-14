@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Vandermonde</title>
+    <title>Lagrange</title>
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -39,11 +39,12 @@
         "
       >
         <div class="container my-auto text-center">
-          <h1 class="mb-1" style="font-size: 50px">Vandermonde</h1>
+          <h1 class="mb-1" style="font-size: 50px">Lagrange</h1>
           <h3 class="mb-5">
             <em style="font-size: 20.256px"
-              >Matriz de Vandermonde, en álgebra lineal, es una matriz que presenta una progresión geométrica en cada fila.
-               Esta matriz recibe dicho nombre en honor al matemático francés Alexandre-Théophile Vandermonde.</em
+              >En los problemas de interpolación, se utiliza a menudo la interpolación mediante splines
+               porque da lugar a resultados similares requiriendo solamente el uso de polinomios de bajo grado, evitando así las oscilaciones,
+               indeseables en la mayoría de las aplicaciones, encontradas al interpolar mediante polinomios de grado elevado.</em
             >
           </h3>
           <a
@@ -55,8 +56,7 @@
           >
         </div>
       </header>
-      <p class="notaGaussAdelante"><strong>Nota: </strong>ejemplo de ingreso de la matriz: [[2, 3, 4]; [4, 4, 2]; [5, 3, 4]].</br>
-        ejemplo de ingreso del vector: [2; 5; 7].
+      <p class="notaGaussAdelante"><strong>Nota: </strong>ejemplo de ingreso de la matriz: [3, 5, 7].
       </p>
       <div class="lineaNota"></div>
       <div class="containerBiseccion">
@@ -78,45 +78,32 @@
               type="text"
               id="entradaAjustesGauss"
               name="valoresY"
-            />          
+            /> 
+            <br>     
+            <br>  
             <button
               class="btn btn-primary d-flex d-lg-flex justify-content-lg-center"
               type="submit"
               style="background: rgb(156, 84, 0)"
-              id="botonRebelde"
+              id="botonMatrices"
             >
               Resolver sistema
             </button>
           </form>
         </div>
         <div class="containerRespuesta">
-          <table class="styled-table">
-            <tr class="active-row" >
-              <th>Polinomio</th>
-            </tr>
-            {% if data %}
-              {% for val in data.1%}
-                <tr >
-                  <td>{{val}}</td>
-                </tr>
-              {% endfor %}
-            {% endif %}
-          </table>
-
-          {% if data %}
-          <table class="styled-table">
-            <tr class="active-row" >
-              <th colspan = "{{data.0|length}}">Resultado matriz de vandermonde</th>
-            </tr>
-              {% for val in data.0%}
+            <table class="styled-table">
+              <tr class="active-row" >
+                <th>Polinomios</th>
+              </tr>
+              {% if data %}
+                {% for val in data%}
                   <tr >
-                    {% for num in val%}
-                    <td>{{num}}</td>
-                    {% endfor %}
+                    <td>P({{forloop.counter}}) : {{val}}</td>
                   </tr>
-              {% endfor %}
-          </table>
-          {% endif %}
+                {% endfor %}
+              {% endif %}
+            </table>
       </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>

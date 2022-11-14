@@ -110,8 +110,31 @@
           </form>
         </div>
         <div class="containerRespuesta">
-            {% if data %} 
-              <p>{{data}}</p>
+            <table class="styled-table">
+              <tr class="active-row" >
+                <th>Vector x :</th>
+              </tr>
+              {% if data %}
+                {% for val in data.0%}
+                  <tr >
+                    <td>X{{forloop.counter}} : {{val}}</td>
+                  </tr>
+                {% endfor %}
+              {% endif %}
+            </table>
+            {% if data %}
+            <table class="styled-table">
+              <tr class="active-row" >
+                <th colspan = "{{data.1|length}}">Matriz Ab</th>
+              </tr>
+                {% for val in data.1%}
+                    <tr >
+                      {% for num in val%}
+                      <td>{{num}}</td>
+                      {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
             {% endif %}
       </div>
     </div>

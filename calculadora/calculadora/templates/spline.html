@@ -106,9 +106,18 @@
           </form>
         </div>
         <div class="containerRespuesta">
-            {% if data %} 
-              <p>{{data}}</p>
-            {% endif %}
+            <table class="styled-table">
+              <tr class="active-row" >
+                <th>Polinomios</th>
+              </tr>
+              {% if data %}
+                {% for val in data%}
+                  <tr >
+                    <td>P({{forloop.counter}}) : {{val}}</td>
+                  </tr>
+                {% endfor %}
+              {% endif %}
+            </table>
       </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
