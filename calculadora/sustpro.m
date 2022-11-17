@@ -11,5 +11,4 @@ function x=sustpro(Ab,n)
         end
         x(i)=(Ab(i,n+1)-sum)/Ab(i,i);
     end
-    
 end

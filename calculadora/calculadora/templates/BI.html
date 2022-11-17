@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>Bisección</title>
+    <title>Busquedas incrementales</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link
       rel="stylesheet"
@@ -40,13 +40,10 @@
         "
       >
         <div class="container my-auto text-center">
-          <h1 class="mb-1" style="font-size: 50px">Bisección</h1>
+          <h1 class="mb-1" style="font-size: 50px">Busquedas incrementales</h1>
           <h3 class="mb-5">
             <em style="font-size: 20.256px"
-              >En matemáticas, el método de bisección , también llamado
-              dicotomía, es un algoritmo de búsqueda de raíces que trabaja
-              dividiendo el intervalo a la mitad y seleccionando el subintervalo
-              que tiene la raíz.</em
+              >Este método se utiliza principalmente como una introducción al método de la bisección con el fin de encontrar un intervalo que contenga una raíz. Consiste en empezar en un extremo del intervalo de interés y evaluar la función con pequeños incrementos a los largo de dicho intervalo. Este método se basa en el teorema del valor intermedio, el cual se explicó anteriormente. Es importante tener en cuenta que si la longitud del incremento no es la adecuada (lo suficientemente pequeña), algunas raíces pueden pasar inadvertidas.</em
             >
           </h3>
           <a
@@ -68,20 +65,20 @@
               class="form-control"
               type="text"
               name="funcion"
-              placeholder="log(sin(x)^2 + 1)-(1/2)-x"
+              placeholder="x^2-5*x+6*sin(x)"
               style="
                 width: 325px;
                 border-radius: 4px;
                 border: 2px solid rgb(228, 180, 11);
               "
             />
-            <h5>Valor de intervalo inferior (a):</h5>
+            <h5>Valor de inicial:</h5>
             <input
               required
               class="form-control"
               type="text"
-              name="numeroMenor"
-              placeholder="0"
+              name="numeroInicial"
+              placeholder="-0.8"
               style="
                 width: 325px;
                 margin-top: 20px;
@@ -90,28 +87,15 @@
                 border-radius: 4px;
               "
             />
-            <h5>Valor de intervalo superior (b):</h5>
+            <h5>Valor del delta:</h5>
             <input
               required
               class="form-control"
               type="text"
-              name="numeroMayor"
-              placeholder="1"
+              name="delta"
+              placeholder="0.1"
               style="
                 width: 325px;
-                margin-top: 20px;
-                border: 2px solid rgb(228, 180, 11);
-                border-radius: 4px;
-              "
-            />
-            <h5>Tolerancia:</h5>
-            <input
-              required
-              class="form-control"
-              type="text"
-              name="tolerancia"
-              placeholder="0.5e-3"
-              style="
                 margin-top: 20px;
                 border: 2px solid rgb(228, 180, 11);
                 border-radius: 4px;
@@ -131,11 +115,6 @@
                 margin-bottom: 15px;
               "
             />
-            <h5>Tipo de error:</h5>
-            <select name="tipoDeError" id="errores">
-              <option name="errorAbsoluto">Error absoluto</option>
-              <option name="errorRelativo">Error relativo</option>
-            </select>
               <button
                 class="btn btn-primary d-flex d-lg-flex justify-content-lg-center"
                 type="submit"
@@ -147,23 +126,9 @@
           </form>
         </div>
         <div class="divTablaResultados">
-          <table class="styled-table">
-            {% if lista %}
-            <tr class="active-row">
-              <th>N</th>
-              <th>F(X)</th>
-              <th>Error</th>
-            </tr>
-            {% for dat in lista %}
-            <tr>
-              {% for valores in dat%}
-              <td>{{valores}} {% endfor%}</td>
-              {% endfor %}
-            </tr>
-            {% endif %}
-          </table>
-            {% if msg %}
-              <p>{{msg}}</p>
+          <h5>
+            {% if lista%}
+              {{lista}}
             {% endif %}
             {% if error %}
               <div class="container_mensaje_error">
@@ -173,6 +138,7 @@
                 <p class="mensaje_error"> <span id="titulo_error">Error</span> </br>{{error}}</p>
               </div>
             {% endif%}
+          </h5>
         </div>
       </div>
       <div class="grafica">

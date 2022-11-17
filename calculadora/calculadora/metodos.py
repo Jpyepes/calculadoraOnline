@@ -4,11 +4,47 @@ import numpy as np
 import sympy as sym
 from sympy.abc import x as xmul
 
+def busquedasIncrementales(numeroInicial, delta, numIteracciones, funcion):
+  x,y = symbols("x y")
+  X0 = float(numeroInicial)
+  Delta = float(delta)
+  Niter = int(numIteracciones)
+  Fun = sympify(funcion, convert_xor=True)
+
+  X = X0
+  f0 = Fun.evalf(subs={x:X0})
+
+  if f0 == 0:
+    s = X
+    return f"{X0} es raíz de f(x)"
+  else:
+    X1 = X0+Delta
+    X = X1
+    c = 1
+    f1 = Fun.evalf(subs={x:X1})
+
+    while f0*f1 > 0 and c < Niter:
+      X0 = X1
+      f0 = f1
+      X1 = X0+Delta
+      X = X1                 
+      f1 = Fun.evalf(subs={x:X1})
+      c = c+1
+      if f1 == 0:
+          s = X
+          return f"{X1} es raíz de f(x)"
+      elif f0*f1<0:
+          s=X
+          return f"Existe una raíz entre [{X0},{X1}]"
+      else:
+          s=x
+          return f"Fracasó en {Niter} iteraciones "
+  return f"Fracasó en {Niter} iteraciones "
 
 def Biseccion(Xi, Xs, Tol, Niter, Fun):
     x,y = symbols("x y")
-    Xi = int(Xi)
-    Xs = int(Xs)
+    Xi = float(Xi)
+    Xs = float(Xs)
     Tol = float(Tol)
     Niter = int(Niter)
     exp = sympify(Fun, convert_xor=True)
@@ -16,42 +52,40 @@ def Biseccion(Xi, Xs, Tol, Niter, Fun):
     fm = []
     E = []
     N = []
-    #x = Xi
-    #fi = eval(Fun)
-    fi = exp.subs(x,Xi)
-    #x = Xs
-    #fs = eval(Fun)
-    fs = exp.subs(x, Xs)
+    fi = exp.evalf(subs={x:Xi})
+    fs = exp.evalf(subs={x:Xs})
+    print(fi)
+    print(fs)
     c = 0
     N.append(c)
 
     if fi == 0:
       s = Xi
       E = 0
-      print(Xi, "es raiz de f(x)")
+      return f"{Xi} es raíz de f(x)"
 
     elif fs == 0:
       s = Xs
       E = 0
-      print(Xs, "es raiz de f(x)")
+      return f"{Xs} es raíz de f(x)"
 
     elif fs*fi < 0:
       
       Xm = (Xi+Xs)/2
-      fe = exp.subs(x,Xm)
+      fe = exp.evalf(subs={x:Xm})
       fm.append(fe)
       E.append(100)
 
       while E[c] > Tol and fe != 0 and c < Niter:
         if fi*fe < 0:
           Xs = Xm
-          fs = exp.subs(x,Xs)
+          fs = exp.evalf(subs={x:Xs})
         else:
           Xi = Xm
-          fs = exp.subs(x,Xi)
+          fs = exp.evalf(subs={x:Xi})
         Xa = Xm
         Xm = (Xi+Xs)/2
-        fe = exp.subs(x,Xm)
+        fe = exp.evalf(subs={x:Xm})
         fm.append(fe)
         Error = abs(Xm-Xa)
         E.append(Error)
@@ -59,18 +93,16 @@ def Biseccion(Xi, Xs, Tol, Niter, Fun):
         N.append(c)
       if fe == 0:
         s = x
-        print(s,"es raiz de f(x)")
+        return f"{s} es raíz de f(x)"
       elif Error < Tol:
         s = x
-        print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
-        return N, fm, E
+        msg = f"{s} es una aproximación de un raíz de f(x) con una tolerancia de {Tol}"
+        return N, fm, E, msg
       else:
         s = x
-        print("Fracaso en ",Niter, " iteraciones ") 
+        return f"Fracasó en {Niter} iteraciones"
     else:
-      #alerta = "El intervalo es inadecuado"
-      #return alerta
-      print("El intervalo es inadecuado")
+      return f"El intervalo es inadecuado"
 
 def PuntoFijo(X0, Tol, Niter, Fun, GFun, tipoDeError): 
   x,y = symbols("x y") 
@@ -115,17 +147,17 @@ def PuntoFijo(X0, Tol, Niter, Fun, GFun, tipoDeError):
 
   if fe == 0:
       s = X
-      print(s,"es raiz de f(x)")
+      return f"{s} es raiz de f(x)"
   elif Error < Tol:
       s = X
-      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      msg = f"{s} es una aproximación de una raíz de f(x) con una tolerancia de {Tol}"
       if tipoDeError == 'Error absoluto':
-        return N, xn, fn, E
+        return N, xn, fn, E, msg
       else:
-        return N, xn, fn, ERelativo 
+        return N, xn, fn, ERelativo, msg
   else:
       s = X
-      print("Fracaso en ",Niter, " iteraciones ") 
+      return f"Fracasó en {Niter} iteraciones"
 
 def Newton(X0, Tol, Niter, Fun, tipoDeError):
   x,y = symbols("x y")
@@ -154,7 +186,8 @@ def Newton(X0, Tol, Niter, Fun, tipoDeError):
   E.append(Error)
   ERelativo.append(ErrorRelativo)
   N.append(c)
-
+  if derivada == 0:
+    return f"Alerta: La derivada de la función es igual a cero!"
   while Error>Tol and f!=0 and derivada!=0  and c<Niter:
       X = X-f/derivada
       derivada = DFun.subs(x, X)
@@ -170,19 +203,19 @@ def Newton(X0, Tol, Niter, Fun, tipoDeError):
       ERelativo.append(ErrorRelativo)
   if f == 0:
       s = X
-      print(s,"es raiz de f(x)")
+      return f"{s} es raíz de f(x)"
 
   elif Error < Tol:
       s = X
-      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
-      print(tipoDeError)
+      msg = f"{s} es una aproximación de un raíz de f(x) con una tolerancia de {Tol}"
+      #print(tipoDeError)
       if tipoDeError == 'Error absoluto':
-        return N, xn ,fn, E
+        return N, xn ,fn, E, msg
       else: 
-        return N, xn ,fn, ERelativo
+        return N, xn ,fn, ERelativo, msg
   else:
       s = X
-      print("Fracaso en ",Niter, " iteraciones ")
+      return f"Fracasó en {Niter} iteraciones"
 
 def ReglaFalsa(X0, X1, Tol, Niter, Fun, tipoDeError):
   x,y = symbols("x y")
@@ -208,7 +241,7 @@ def ReglaFalsa(X0, X1, Tol, Niter, Fun, tipoDeError):
     s = X0
     E = 0
     ERelativo = 0
-    print(X0, "es raiz de f(x)")
+    return f"{X0} es raíz de f(x)"
 
   elif fi*fs <= 0:
     Xm = X1 - (fs*(X0-X1))/(fi-fs)
@@ -242,19 +275,19 @@ def ReglaFalsa(X0, X1, Tol, Niter, Fun, tipoDeError):
 
     if fe == 0:
       s = x
-      print(s,"es raiz de f(x)")
+      return f"{s} es raíz de f(x)"
     elif Error < Tol:
       s = x
-      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      msg= f"{s} es una aproximación de un raíz de f(x) con una tolerancia de {Tol}"
       if tipoDeError == 'Error absoluto':
-        return N,val2, fm, E
+        return N,val2, fm, E, msg
       else:
-        return N, val2, fm, ERelativo
+        return N, val2, fm, ERelativo, msg
     else:
       s = x
-      print("Fracaso en ",Niter, " iteraciones ") 
+      return f"Fracasó en {Niter} iteraciones" 
   else:
-    print("El intervalo es inadecuado")
+    return "El intervalo es inadecuado"
 
 def Secante(X0, X1,Tol,Niter ,Fun, tipoDeError):
   x,y = symbols("x y")
@@ -297,7 +330,7 @@ def Secante(X0, X1,Tol,Niter ,Fun, tipoDeError):
       s = X0
       E = 0
       ERelativo = 0
-      print(X0, "es raiz de f(x)")
+      return f"{X0} es raiz de f(x)"
 
   fm = 1
   while (Error > Tol) and (c < Niter) and (fm != 0):    
@@ -305,7 +338,6 @@ def Secante(X0, X1,Tol,Niter ,Fun, tipoDeError):
       f1 = exp.evalf(subs={x:X1})
 
       Xn = X1 - ((f1*(X1-X0))/(f1-f))
-      #x = Xn
       fm = exp.evalf(subs={x:Xn})
 
       fn.append(fm)
@@ -323,18 +355,18 @@ def Secante(X0, X1,Tol,Niter ,Fun, tipoDeError):
 
   if f == 0:
       s = X0
-      print(s,"es raiz de f(x)")
+      return f"{s} es raiz de f(x)"
 
   elif Error < Tol:
       s = X0
-      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      msg = f"{s} es una aproximación de una raíz de f(x) con una tolerancia de {Tol}"
       if tipoDeError == 'Error absoluto':
-        return N, xn ,fn, E
+        return N, xn ,fn, E, msg
       else:
-        return N, xn ,fn, ERelativo
+        return N, xn ,fn, ERelativo, msg
   else:
       s = 1
-      print("Fracaso en ",Niter, " iteraciones ") 
+      return f"Fracasó en {Niter} iteraciones"
 
 def sustreg(Ab,n):
 	x = np.zeros(n)
@@ -437,14 +469,14 @@ def RaicesMultiples(X0, Tol, Niter, Fun, DFun, DFun2, tipoDeError):
       ERelativo.append(ErrorRelativo)
   if f == 0:
       s = X
-      print(s,"es raiz de f(x)")
+      return f"{s} es raíz de f(x)"
   elif Error < Tol:
       s = X
-      print(s,"es una aproximacion de un raiz de f(x) con una tolerancia", Tol)
+      msg = f"{s} es una aproximación de una raiz de f(x) con una tolerancia {Tol}"
       if tipoDeError == 'Error absoluto':
-        return N, xn ,fn, E
+        return N, xn ,fn, E, msg
       else:
-        return N, xn ,fn, ERelativo
+        return N, xn ,fn, ERelativo, msg
   else:
       s = X
-      print("Fracaso en ",Niter, " iteraciones ")
+      return f"Fracasó en {Niter} iteraciones"

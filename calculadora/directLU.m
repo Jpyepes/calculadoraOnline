@@ -2,8 +2,9 @@
 %elegido, Doolittle, crout o cholesky se elige 0,1 o 2 respectivamente en
 %met.
 
-function [L, U] = directLU(A, met)
+function [L, U, x] = directLU(A, b, met)
     A = str2num(A);
+    b = str2num(b);
     n = length(A);
     U = eye(n);
     L = U;
@@ -35,4 +36,10 @@ function [L, U] = directLU(A, met)
             U(k,j)=(A(k,j)-sum3)/L(k,k);
         end
     end
+    I = [1 0 0; 0 1 0; 0 0 1];
+    B = I*b;
+    LB = [L,B];
+    z = sustpro(LB,n);
+    Uz = [U,z];
+    x = sustreg(Uz,n);
 end

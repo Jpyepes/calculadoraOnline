@@ -8,6 +8,7 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <title>Vandermonde</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -55,8 +56,7 @@
           >
         </div>
       </header>
-      <p class="notaGaussAdelante"><strong>Nota: </strong>ejemplo de ingreso de la matriz: [[2, 3, 4]; [4, 4, 2]; [5, 3, 4]].</br>
-        ejemplo de ingreso del vector: [2; 5; 7].
+      <p class="notaGaussAdelante"><strong>Nota: </strong>ejemplo de ingreso del vector: [-1, 0, 3, 4].
       </p>
       <div class="lineaNota"></div>
       <div class="containerBiseccion">
@@ -91,10 +91,10 @@
         </div>
         <div class="containerRespuesta">
           <table class="styled-table">
+            {% if data %}
             <tr class="active-row" >
               <th>Polinomio</th>
             </tr>
-            {% if data %}
               {% for val in data.1%}
                 <tr >
                   <td>{{val}}</td>
@@ -117,6 +117,14 @@
               {% endfor %}
           </table>
           {% endif %}
+          {% if msg %}
+              <div class="container_mensaje_error">
+                <div class="circulo">
+                    <i class="material-symbols-outlined">close</i>
+                </div>
+                <p class="mensaje_error"> <span id="titulo_error">Error</span> </br>{{msg}}</p>
+              </div>
+            {% endif%}
       </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>

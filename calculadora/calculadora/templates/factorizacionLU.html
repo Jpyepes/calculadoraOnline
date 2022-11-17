@@ -8,6 +8,7 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <title>Factorización LU</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -109,18 +110,18 @@
           </form>
         </div>
         <div class="containerRespuesta">
+          {% if data %}
             <table class="styled-table">
               <tr class="active-row" >
                 <th>Resultado X</th>
               </tr>
-              {% if data %}
                 {% for val in data.0%}
                   <tr >
                     <td>X{{forloop.counter}} : {{val}}</td>
                   </tr>
                 {% endfor %}
-              {% endif %}
             </table>
+            {% endif %}
 
             {% if data %}
             <table class="styled-table">
@@ -151,6 +152,15 @@
                 {% endfor %}
             </table>
             {% endif %}
+            {% if msg %}
+              <div class="container_mensaje_error">
+                <div class="circulo">
+                    <i class="material-symbols-outlined">close</i>
+                </div>
+                <p class="mensaje_error"> <span id="titulo_error">Error</span> </br>{{msg}}</p>
+              </div>
+            {% endif%}
+
       </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>

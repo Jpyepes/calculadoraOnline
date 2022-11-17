@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from calculadora.views import index, sobreNosotros, pageBiseccion, pagePuntoFijo, pageNewton, pageReglaFalsa,pageMetodoSecante, pageGauss,settingsGauss, pageFactorizacionLU, pageSOR,  pageJacobiGauss, pageCDC, pageVandermonde, pageSpline, pageGraficas, pageLagrange, pageNewtonint,pageRaicesMultiples
+from calculadora.views import index, sobreNosotros, pageBiseccion, pagePuntoFijo, pageNewton, pageReglaFalsa,pageMetodoSecante, pageGauss,settingsGauss, pageFactorizacionLU, pageSOR,  pageJacobiGauss, pageCDC, pageVandermonde, pageSpline, pageGraficas, pageLagrange, pageNewtonint,pageRaicesMultiples, pageBusquedasIncrementales
 from calculadora.metodos import Biseccion
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
     path('sobreNosotros/', sobreNosotros, name="sobreNosotros"),
+    path('pageBusquedasIncrementales/', pageBusquedasIncrementales, name = "pageBusquedasIncrementales"),
     path('pageBiseccion/', pageBiseccion, name="pageBiseccion"),
     path('pagePuntoFijo/', pagePuntoFijo, name="pagePuntoFijo"), 
     path('pageNewton/', pageNewton, name="pageNewton"),

@@ -8,6 +8,7 @@ function [x, L, U] = LU(A,b,n,Piv)
     for k=1:n-1
         if Piv==1
             [A, P]=pivLU(A,P,n,k);
+            P
         end
         for i=k+1:n
             M=A(i,k)/A(k,k);
