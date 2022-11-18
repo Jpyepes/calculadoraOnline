@@ -124,21 +124,52 @@
         </div>
         <div class="containerRespuesta">
             {% if data %} 
-              <p>{{data}}</p>
+              <p><strong>{{data.3}}</strong></p>
             {% endif %}
+            
             {% if data %}
-            <table class="styled-table">
-              <tr class="active-row" >
-                <th colspan = "{{data.0|length}}">Resultado matriz </th>
-              </tr>
-                {% for val in data.1%}
-                    <tr >
+              <table class="styled-table">
+                <tr class="active-row" >
+                  <th colspan = "4">Resultado matriz</th>
+                </tr>
+                  {% for val in data.1%}
+                      <tr >
+                        {% for num in val%}
+                        <td>{{num}}</td>
+                        {% endfor %}
+                      </tr>
+                  {% endfor %}
+              </table>
+            {% endif %}
+
+            {% if data %}
+              <table class="styled-table">
+                <tr class="active-row" >
+                  <th colspan = "4">Resultado matriz de T</th>
+                </tr>
+                  {% for val in data.2%}
+                      <tr >
+                        {% for num in val%}
+                        <td>{{num}}</td>
+                        {% endfor %}
+                      </tr>
+                  {% endfor %}
+              </table>
+            {% endif %}
+
+            {% if data %}
+              <table class="styled-table">
+                <tr class="active-row" >
+                  <th colspan = "1">Error</th>
+                </tr>
+                  {% for val in data.0%}
                       {% for num in val%}
-                      <td>{{num}}</td>
+                      <tr >
+                        <td>{{num}}</td>
+                      </tr>
                       {% endfor %}
-                    </tr>
-                {% endfor %}
-            </table>
+                  {% endfor %}
+              </table>
             {% endif %}
             {% if msg %}
               <div class="container_mensaje_error">

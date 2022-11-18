@@ -2,7 +2,7 @@
 %Ax=b con base en una condición inicial x0,mediante el método Gauss Seidel (relajado), depende del valor de w 
 %entre (0,2)
 
-function [E, s, T] = SOR(x0,A,b,Tol,niter,w)
+function [E, s, T, respuesta] = SOR(x0,A,b,Tol,niter,w)
     A = str2num(A);
     b = str2num(b);
     x0 = str2num(x0);
@@ -20,6 +20,12 @@ function [E, s, T] = SOR(x0,A,b,Tol,niter,w)
         error=E(c+1);
         x0=x1;
         c=c+1;
+    end
+    radioEspectral = max(abs(eig(T)));
+    if radioEspectral > 1
+        respuesta = "El radio espectral de la matriz de transición es mayor a 1, verifique que este este ingresando correctamente la matriz o cambie de matriz.";
+    else
+        respuesta = "";
     end
     if error < Tol
         s=x0;

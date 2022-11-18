@@ -19,9 +19,12 @@ def pageBusquedasIncrementales(request):
     numeroInicial = request.POST["numeroInicial"]
     delta = request.POST["delta"]
     numIteracciones = request.POST["numIteraciones"]
-
-    datos = busquedasIncrementales(numeroInicial, delta, numIteracciones, funcion)
-    print(datos)
+    try:
+      datos = busquedasIncrementales(numeroInicial, delta, numIteracciones, funcion)
+      print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "BI.html", {"msg": msg})
 
   if datos:
     print(datos)
@@ -39,13 +42,17 @@ def pageBiseccion(request):
     numeroMayor = request.POST["numeroMayor"]
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
-    
-    exp = sympify(funcion, convert_xor=True)
-    grafica = plot(exp, show = False)
-    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = Biseccion(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
-    print(datos)
+    try:
+      exp = sympify(funcion, convert_xor=True)
+      grafica = plot(exp, show = False)
+      grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
+      datos = Biseccion(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
+      print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "Bisección.html", {"msg": msg})
 
     if datos:
       if type(datos) is not str:
@@ -69,13 +76,18 @@ def pagePuntoFijo(request):
     tolerancia = request.POST["tolerancia"]
     numIteracciones = request.POST["numIteraciones"]
     tipoDeError = request.POST["tipoDeError"]
-
-    exp = sympify(funcion, convert_xor=True)
-    grafica = plot(exp, show = False)
-    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
     
-    datos = PuntoFijo(valorInicial, tolerancia, numIteracciones, funcion, funciong, tipoDeError)
-    print(datos)
+    try:
+      exp = sympify(funcion, convert_xor=True)
+      grafica = plot(exp, show = False)
+      grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
+      datos = PuntoFijo(valorInicial, tolerancia, numIteracciones, funcion, funciong, tipoDeError)
+      print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "puntoFijo.html", {"msg": msg})
+
     if datos:
       if type(datos) is not str:
         n = len(datos[0])
@@ -97,11 +109,16 @@ def pageNewton(request):
     numIteracciones = request.POST["numIteraciones"]
     tipoDeError = request.POST["tipoDeError"]
 
-    exp = sympify(funcion, convert_xor=True)
-    grafica = plot(exp, show = False)
-    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+    try:
+      exp = sympify(funcion, convert_xor=True)
+      grafica = plot(exp, show = False)
+      grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = Newton(valorInicial, tolerancia, numIteracciones, funcion, tipoDeError)
+      datos = Newton(valorInicial, tolerancia, numIteracciones, funcion, tipoDeError)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "newton.html", {"msg": msg})
+    
     if datos:
       if type(datos) is not str:
         #print(datos)
@@ -126,12 +143,17 @@ def pageRaicesMultiples(request):
     numIteracciones = request.POST["numIteraciones"]
     tipoDeError = request.POST["tipoDeError"]
 
-    exp = sympify(funcion, convert_xor=True)
-    grafica = plot(exp, show = False)
-    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+    try:
+      exp = sympify(funcion, convert_xor=True)
+      grafica = plot(exp, show = False)
+      grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = RaicesMultiples(valorInicial, tolerancia, numIteracciones, funcion, derivada, derivada2,tipoDeError)
-    #print(datos)
+      datos = RaicesMultiples(valorInicial, tolerancia, numIteracciones, funcion, derivada, derivada2,tipoDeError)
+      #print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "raicesMultiples.html", {"msg": msg})
+
     if datos:
       if type(datos) is not str:
         n = len(datos[0])
@@ -155,12 +177,17 @@ def pageReglaFalsa(request):
     numIteracciones = request.POST["numIteraciones"]
     tipoDeError = request.POST["tipoDeError"]
 
-    exp = sympify(funcion, convert_xor=True)
-    grafica = plot(exp, show = False)
-    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+    try:
+      exp = sympify(funcion, convert_xor=True)
+      grafica = plot(exp, show = False)
+      grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = ReglaFalsa(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
-    #print(datos)
+      datos = ReglaFalsa(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
+      #print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "reglaFalsa.html", {"msg": msg})
+
     if datos:
       if type(datos) is not str:
         n = len(datos[0])
@@ -183,12 +210,17 @@ def pageMetodoSecante(request):
     numIteracciones = request.POST["numIteraciones"]
     tipoDeError = request.POST["tipoDeError"]
 
-    exp = sympify(funcion, convert_xor=True)
-    grafica = plot(exp, show = False)
-    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+    try:
+      exp = sympify(funcion, convert_xor=True)
+      grafica = plot(exp, show = False)
+      grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
 
-    datos = Secante(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
-    #print(datos)
+      datos = Secante(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
+      #print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "secante.html", {"msg": msg})
+
     if datos:
       if type(datos) is not str:   
         n = len(datos[0])
@@ -221,8 +253,13 @@ def pageGauss(request):
     matrizB = ast.literal_eval(matrizB)
     matrizB = [list(x) for x in matrizB]
     print(tipoPivoteo)
-    datos = Gauss(matrizA, matrizB, int(tipoPivoteo))
-    print(datos)
+
+    try:
+      datos = Gauss(matrizA, matrizB, int(tipoPivoteo))
+      print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "gauss.html", {"msg": msg})
     tamaño = 4
   
   if datos:
@@ -259,7 +296,7 @@ def pageSOR(request):
     valorW = request.POST["valorW"]
 
     try:
-      datos = eng.SOR(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), float(valorW), nargout=3)
+      datos = eng.SOR(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), float(valorW), nargout=4)
       print(datos)
     except:
       msg = "El método falló inesperadamente, revise los valores de entrada"
@@ -280,7 +317,7 @@ def pageJacobiGauss(request):
     metodo = request.POST["tipoMetodo"]
 
     try:
-      datos = eng.MatJacobiSeid(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), int(metodo), nargout=3)
+      datos = eng.MatJacobiSeid(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), int(metodo), nargout=4)
       print(datos)
     except:
       msg = "El método falló inesperadamente, revise los valores de entrada"
@@ -345,8 +382,13 @@ def pageLagrange(request):
   if request.method == 'POST':
     valoresX = request.POST["valoresX"]
     valoresY = request.POST["valoresY"]
-    datos = eng.Lagrange(valoresX, valoresY)
-    print(datos)
+
+    try:
+      datos = eng.Lagrange(valoresX, valoresY)
+      print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "lagrange.html", {"msg": msg})
   if datos:
     return render(request, "lagrange.html", {"data": datos})
   return render(request, "lagrange.html")
@@ -357,8 +399,13 @@ def pageNewtonint(request):
   if request.method == 'POST':
     valoresX = request.POST["valoresX"]
     valoresY = request.POST["valoresY"]
-    datos = eng.Newtonint(valoresX, valoresY, nargout=2)
-    print(datos)
+
+    try:
+      datos = eng.Newtonint(valoresX, valoresY, nargout=3)
+      print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "newtonint.html", {"msg": msg})
   if datos:
     tamaño = len(datos[0][0])
     return render(request, "newtonint.html", {"data": datos, "tamaño": tamaño})

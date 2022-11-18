@@ -93,10 +93,10 @@
         </div>
         <div class="containerRespuesta">
             <table class="styled-table">
+              {% if data %}
               <tr class="active-row" >
                 <th>Polinomios</th>
               </tr>
-              {% if data %}
                 {% for val in data%}
                   <tr >
                     <td>P({{forloop.counter}}) : {{val}}</td>
@@ -105,6 +105,13 @@
               {% endif %}
             </table>
       </div>
+    </div>
+    <div class="grafica">
+      <h1 class="tituloGrafica">Gráfica de lo puntos:</h1>
+      <img
+        src="{% static 'assets/img/GraficaLagrange.png' %}"
+        id="imagenGrafica"
+      />
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/stylish-portfolio.js' %}"></script>

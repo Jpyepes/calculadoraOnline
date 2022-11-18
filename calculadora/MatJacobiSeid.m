@@ -3,7 +3,7 @@
 %de Gauss Seidel (Matricial), depende del método elegido, se elige 0 o 1 en met
 %respectivamente
 
-function [E, s, T] = MatJacobiSeid(x0,A,b,Tol,niter,met)
+function [E, s, T, respuesta] = MatJacobiSeid(x0,A,b,Tol,niter,met)
     A = str2num(A);
     b = str2num(b);
     x0 = str2num(x0);
@@ -28,6 +28,13 @@ function [E, s, T] = MatJacobiSeid(x0,A,b,Tol,niter,met)
         x0=x1
         c=c+1;
     end
+    radioEspectral = max(abs(eig(T)));
+    if radioEspectral > 1
+        respuesta = "El radio espectral de la matriz de transición es mayor a 1, verifique que este este ingresando correctamente la matriz o cambie de matriz.";
+    else
+        respuesta = "";
+    end
+
     if error < Tol
         s=x0;
         n=c;

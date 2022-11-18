@@ -10,3 +10,6 @@ function [A, a] = vandermonde(x, y)
 
   xpol = -2:0.01:3;
   p = a(1)*xpol.^3+a(2)*xpol.^2+a(3)*xpol+a(4);
+
+  grafica = plot(x, y);
+  saveas(grafica, "calculadora/static/assets/img/GraficaVandermonde.png");

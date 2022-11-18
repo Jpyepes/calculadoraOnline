@@ -124,7 +124,8 @@ function [Tabla] = Spline(x,y,d)
         A(h,c+1)=2;
         b(h)=0;
     end
-
+    grafica = plot(x, y);
+    saveas(grafica, "calculadora/static/assets/img/GraficaSpline.png");
     val=inv(A)*b;
     Tabla=reshape(val,d+1,n-1);
     Tabla=Tabla';

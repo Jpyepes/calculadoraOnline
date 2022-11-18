@@ -108,16 +108,34 @@
           </table>
           {% endif %}
             <table class="styled-table">
+              {% if data %}
               <tr class="active-row" >
                 <th>Error truncamiento</th>
               </tr>
-              {% if data %}
                   <tr >
                     <td>{{data.1}}</td>
                   </tr>
               {% endif %}
             </table>
+
+            <table class="styled-table">
+              {% if data %}
+              <tr class="active-row" >
+                <th>Coeficientes</th>
+              </tr>
+                  <tr >
+                    <td>{{data.2}}</td>
+                  </tr>
+              {% endif %}
+            </table>
       </div>
+    </div>
+    <div class="grafica">
+      <h1 class="tituloGrafica">Gráfica de los puntos:</h1>
+      <img
+        src="{% static 'assets/img/GraficaNewton.png' %}"
+        id="imagenGrafica"
+      />
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/stylish-portfolio.js' %}"></script>

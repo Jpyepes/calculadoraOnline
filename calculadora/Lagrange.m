@@ -19,4 +19,6 @@ function [pol] = Lagrange(x,y)
         Tabla(i,:) = y(i)*Li/den;
     end
     pol = sum(Tabla);
+    grafica = plot(x, y);
+    saveas(grafica, "calculadora/static/assets/img/GraficaLagrange.png");
 end

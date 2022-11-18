@@ -8,6 +8,7 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <title>JacobiGauss</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -128,7 +129,54 @@
         </div>
         <div class="containerRespuesta">
             {% if data %} 
-              <p>{{data}}</p>
+              <p><strong>{{data.3}}</strong></p>
+            {% endif %}
+            
+            {% if data %}
+          <table class="styled-table">
+            <tr class="active-row" >
+              <th colspan = "4">Resultado matriz</th>
+            </tr>
+              {% for val in data.1%}
+                  <tr >
+                    {% for num in val%}
+                    <td>{{num}}</td>
+                    {% endfor %}
+                  </tr>
+              {% endfor %}
+          </table>
+          {% endif %}
+
+          {% if data %}
+          <table class="styled-table">
+            <tr class="active-row" >
+              <th colspan = "4">Resultado matriz de T</th>
+            </tr>
+              {% for val in data.2%}
+                  <tr >
+                    {% for num in val%}
+                    <td>{{num}}</td>
+                    {% endfor %}
+                  </tr>
+              {% endfor %}
+          </table>
+          {% endif %}
+
+          {% if data %}
+            <table class="styled-table">
+              <tr class="active-row" >
+                <th colspan = "1">Error</th>
+              </tr>
+              
+                {% for val in data.0%}
+                    {% for num in val%}
+                    <tr >
+                      <td>{{num}}</td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+              
+            </table>
             {% endif %}
 
             {% if msg %}

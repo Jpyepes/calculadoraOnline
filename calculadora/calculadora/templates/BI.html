@@ -138,6 +138,14 @@
                 <p class="mensaje_error"> <span id="titulo_error">Error</span> </br>{{error}}</p>
               </div>
             {% endif%}
+            {% if msg %}
+              <div class="container_mensaje_error">
+                <div class="circulo">
+                    <i class="material-symbols-outlined">close</i>
+                </div>
+                <p class="mensaje_error"> <span id="titulo_error">Error</span> </br>{{msg}}</p>
+              </div>
+            {% endif%}
           </h5>
         </div>
       </div>

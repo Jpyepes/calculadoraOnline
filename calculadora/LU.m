@@ -3,6 +3,8 @@
 % o usando pivoteo parcial piv=1. Donde A es de tamaño nxn y b de tamaño nx1
 
 function [x, L, U] = LU(A,b,n,Piv)
+    A = str2num(A);
+    b = str2num(b);
     P=eye(n);
     L=P;
     for k=1:n-1
