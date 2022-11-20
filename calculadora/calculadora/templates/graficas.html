@@ -8,6 +8,7 @@
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <title>Gráficas</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link
       rel="stylesheet"
       href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"
@@ -78,7 +79,20 @@
             </button>
           </form>
         </div>
+        
         <div class="grafica">
+
+          {% if msg %}
+              <div class="container_mensaje_error">
+                <div class="circulo">
+                    <i class="material-symbols-outlined">close</i>
+                </div>
+                <p class="mensaje_error"> <span id="titulo_error">Error</span> </br>{{msg}}</p>
+              </div>
+              <br>
+              <br>
+              <br>
+        {% endif%}
           <h1 class="tituloGrafica">Gráfica de la función:</h1>
           <img
             src="{% static 'assets/img/GraficaSYM.jpg' %}"

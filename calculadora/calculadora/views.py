@@ -23,8 +23,8 @@ def pageBusquedasIncrementales(request):
       datos = busquedasIncrementales(numeroInicial, delta, numIteracciones, funcion)
       print(datos)
     except:
-      msg = "El método falló inesperadamente, revise los valores de entrada"
-      return render(request, "BI.html", {"msg": msg})
+      error = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "BI.html", {"error":error})
 
   if datos:
     print(datos)
@@ -51,8 +51,8 @@ def pageBiseccion(request):
       datos = Biseccion(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion)
       print(datos)
     except:
-      msg = "El método falló inesperadamente, revise los valores de entrada"
-      return render(request, "Bisección.html", {"msg": msg})
+      error = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "Bisección.html", {"error":error})
 
     if datos:
       if type(datos) is not str:
@@ -85,8 +85,8 @@ def pagePuntoFijo(request):
       datos = PuntoFijo(valorInicial, tolerancia, numIteracciones, funcion, funciong, tipoDeError)
       print(datos)
     except:
-      msg = "El método falló inesperadamente, revise los valores de entrada"
-      return render(request, "puntoFijo.html", {"msg": msg})
+      error = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "puntoFijo.html", {"error":error})
 
     if datos:
       if type(datos) is not str:
@@ -116,8 +116,8 @@ def pageNewton(request):
 
       datos = Newton(valorInicial, tolerancia, numIteracciones, funcion, tipoDeError)
     except:
-      msg = "El método falló inesperadamente, revise los valores de entrada"
-      return render(request, "newton.html", {"msg": msg})
+      error = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "newton.html", {"error":error})
     
     if datos:
       if type(datos) is not str:
@@ -151,8 +151,8 @@ def pageRaicesMultiples(request):
       datos = RaicesMultiples(valorInicial, tolerancia, numIteracciones, funcion, derivada, derivada2,tipoDeError)
       #print(datos)
     except:
-      msg = "El método falló inesperadamente, revise los valores de entrada"
-      return render(request, "raicesMultiples.html", {"msg": msg})
+      error = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "raicesMultiples.html", {"error":error})
 
     if datos:
       if type(datos) is not str:
@@ -185,8 +185,8 @@ def pageReglaFalsa(request):
       datos = ReglaFalsa(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
       #print(datos)
     except:
-      msg = "El método falló inesperadamente, revise los valores de entrada"
-      return render(request, "reglaFalsa.html", {"msg": msg})
+      error = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "reglaFalsa.html", {"error":error})
 
     if datos:
       if type(datos) is not str:
@@ -218,8 +218,8 @@ def pageMetodoSecante(request):
       datos = Secante(numeroMenor, numeroMayor, tolerancia, numIteracciones, funcion, tipoDeError)
       #print(datos)
     except:
-      msg = "El método falló inesperadamente, revise los valores de entrada"
-      return render(request, "secante.html", {"msg": msg})
+      error = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "secante.html", {"error":error})
 
     if datos:
       if type(datos) is not str:   
@@ -234,14 +234,26 @@ def pageMetodoSecante(request):
   return render(request,"secante.html")
 
 def settingsGauss(request):
+  datos = ()
+  eng = matlab.engine.start_matlab()
   if request.method == 'POST':
-    tamaño = request.POST["tamañoMatriz"]
-    pivoteo = request.POST["tipoPivoteo"]
-    return render(request, "gauss.html")
-  return render(request, "settingsGauss.html")
+    matrizA = request.POST["matrizA"]
+    matrizB = request.POST["matrizB"]
+    tamaño = request.POST["tamaño"]
+    tipoPivoteo = request.POST["tipoPivoteo"]
+
+    try:
+      datos = eng.GaussPiv(matrizA, matrizB, int(tamaño), int(tipoPivoteo))
+      print(datos)
+    except:
+      msg = "El método falló inesperadamente, revise los valores de entrada"
+      return render(request, "gauss.html", {"msg": msg})
+      
+  if datos:
+      return render(request, "gauss.html", {"data": datos})
+  return render(request, "gauss.html")
 
 def pageGauss(request):
-  SistemaResuelto = ()
   datos = ()
   if request.method == 'POST':
     matrizA = request.POST["matrizA"]
@@ -414,7 +426,12 @@ def pageNewtonint(request):
 def pageGraficas(request):
   if request.method == 'POST':
     funcion = request.POST["funcion"]
-    exp = sympify(funcion, convert_xor=True)
-    grafica = plot(exp, show = False)
-    grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+
+    try:
+      exp = sympify(funcion, convert_xor=True)
+      grafica = plot(exp, show = False)
+      grafica.save("calculadora/static/assets/img/GraficaSYM.jpg")
+    except:
+      msg = "Sucedio un error vuelva a intentar."
+      return render(request, 'graficas.html', {"msg": msg})
   return render(request, 'graficas.html') 
