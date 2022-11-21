@@ -307,6 +307,8 @@ def pageSOR(request):
     numIteraciones = request.POST["numIteraciones"]
     valorW = request.POST["valorW"]
 
+    if int(numIteraciones) <= 1:
+      numIteraciones = 2
     try:
       datos = eng.SOR(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), float(valorW), nargout=4)
       print(datos)
@@ -327,7 +329,8 @@ def pageJacobiGauss(request):
     tolerancia = request.POST["tolerancia"]
     numIteraciones = request.POST["numIteraciones"]
     metodo = request.POST["tipoMetodo"]
-
+    if int(numIteraciones) <= 1:
+      numIteraciones = 2
     try:
       datos = eng.MatJacobiSeid(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), int(metodo), nargout=4)
       print(datos)
