@@ -133,6 +133,11 @@
             {% endif %}
             
             {% if data %}
+
+            {% if data %} 
+            <p><strong>{{data.4}}</strong></p>
+          {% endif %}
+          
           <table class="styled-table">
             <tr class="active-row" >
               <th colspan = "4">Resultado matriz</th>
@@ -146,6 +151,8 @@
               {% endfor %}
           </table>
           {% endif %}
+
+          
 
           {% if data %}
           <table class="styled-table">

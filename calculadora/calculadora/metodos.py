@@ -429,7 +429,7 @@ def RaicesMultiples(X0, Tol, Niter, Fun, DFun, DFun2, tipoDeError):
   Error = 100    
   ErrorRelativo = 100           
   fn.append(f)
-
+ 
   xn.append(X0)
   E.append(Error)
   ERelativo.append(ErrorRelativo)

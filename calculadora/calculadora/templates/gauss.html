@@ -86,6 +86,14 @@
               id="entradaAjustesGauss"
               name="matrizB"
             />
+            <h5>Ingrese el tamaño de A</h5>
+            <input
+              required
+              class="entradaTamaño"
+              type="number"
+              id="entradaAjustesGauss"
+              name="tamaño"
+            />
             <h5>Ingrese el tipo de pivoteo</h5>
             <select required name="tipoPivoteo" id="pivoteo">
               <option name="sinPivoteo">0</option>
@@ -110,11 +118,17 @@
           </form>
         </div>
         <div class="containerRespuesta">
+          <h5 id="titulo_error">Para tener en cuenta</h5>
+          <p>Recuerde que el vector MARK indica en que posición esta la solición al sistema
+            EJ: si el mark arroja 3, 2, 1 significa que en el vetor x la ultima casilla tiene la solicion de X1
+            y asi sucesivamente.
+          </p>
+
             <table class="styled-table">
+              {% if data %}
               <tr class="active-row" >
                 <th>Vector x :</th>
               </tr>
-              {% if data %}
                 {% for val in data.0%}
                   <tr >
                     <td>X{{forloop.counter}} : {{val}}</td>
@@ -125,7 +139,7 @@
             {% if data %}
             <table class="styled-table">
               <tr class="active-row" >
-                <th colspan = "{{tamaño}}">Matriz Ab</th>
+                <th colspan = "{{data.0|length}}">Mark</th>
               </tr>
                 {% for val in data.1%}
                     <tr >
@@ -136,6 +150,14 @@
                 {% endfor %}
             </table>
             {% endif %}
+            {% if msg %}
+              <div class="container_mensaje_error">
+                <div class="circulo">
+                    <i class="material-symbols-outlined">close</i>
+                </div>
+                <p class="mensaje_error"> <span id="titulo_error">Error</span> </br>{{msg}}</p>
+              </div>
+            {% endif%}
       </div>
     </div>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>

@@ -2,7 +2,7 @@
 %Ax=b con base en una condición inicial x0,mediante el método Gauss Seidel (relajado), depende del valor de w 
 %entre (0,2)
 
-function [E, s, T, respuesta] = SOR(x0,A,b,Tol,niter,w)
+function [E, s, T, respuesta, textoUsuario] = SOR(x0,A,b,Tol,niter,w)
     A = str2num(A);
     b = str2num(b);
     x0 = str2num(x0);
@@ -31,10 +31,18 @@ function [E, s, T, respuesta] = SOR(x0,A,b,Tol,niter,w)
         s=x0;
         n=c;
         s
+        textoUsuario = 'Es una aproximación de la solución del sistmea con una tolerancia = ';
+        s1 = num2str(Tol,'%0.2f');
+        textoUsuario = strcat(textoUsuario,s1)
         fprintf('es una aproximación de la solución del sistmea con una tolerancia= %f',Tol)
     else 
         s=x0;
         n=c;
+        textoUsuario = 'Fracasó en ';
+        s1 = num2str(niter,'%0.9f');
+        textoUsuario = strcat(textoUsuario,s1)
+        s2 = ' iteraciones'
+        textoUsuario = strcat(textoUsuario, s2)
         fprintf('Fracasó en %f iteraciones',niter) 
     end
 end

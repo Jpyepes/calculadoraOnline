@@ -243,7 +243,7 @@ def settingsGauss(request):
     tipoPivoteo = request.POST["tipoPivoteo"]
 
     try:
-      datos = eng.GaussPiv(matrizA, matrizB, int(tamaño), int(tipoPivoteo))
+      datos = eng.GaussPiv(matrizA, matrizB, int(tamaño), int(tipoPivoteo), nargout=2)
       print(datos)
     except:
       msg = "El método falló inesperadamente, revise los valores de entrada"
@@ -310,7 +310,7 @@ def pageSOR(request):
     if int(numIteraciones) <= 1:
       numIteraciones = 2
     try:
-      datos = eng.SOR(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), float(valorW), nargout=4)
+      datos = eng.SOR(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), float(valorW), nargout=5)
       print(datos)
     except:
       msg = "El método falló inesperadamente, revise los valores de entrada"
@@ -332,7 +332,7 @@ def pageJacobiGauss(request):
     if int(numIteraciones) <= 1:
       numIteraciones = 2
     try:
-      datos = eng.MatJacobiSeid(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), int(metodo), nargout=4)
+      datos = eng.MatJacobiSeid(matrizX0, matrizA, matrizB, float(tolerancia), int(numIteraciones), int(metodo), nargout=5)
       print(datos)
     except:
       msg = "El método falló inesperadamente, revise los valores de entrada"

@@ -162,8 +162,10 @@
             {% endif %}
           </table>
           {% if msg %}
-              <p>{{msg}}</p>
-            {% endif %}
+              <div class="container_mensaje_error">
+                <p class="mensaje_error"> <span id="titulo_error">Importante</span> </br>{{msg}}</p>
+              </div>
+            {% endif%}
             {% if error %}
               <div class="container_mensaje_error">
                 <div class="circulo">
