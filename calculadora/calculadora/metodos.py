@@ -118,8 +118,6 @@ def PuntoFijo(X0, Tol, Niter, Fun, GFun, tipoDeError):
   N = []
   ERelativo = []
   X = X0
-  #x = X0
-  #f = eval(Fun)
   f = exp.subs(x,X)
   c = 0
   Error = 100  
@@ -131,8 +129,6 @@ def PuntoFijo(X0, Tol, Niter, Fun, GFun, tipoDeError):
   N.append(c)
 
   while Error > Tol and f != 0 and c < Niter:
-    #x = eval(GFun)
-    #fe = eval(Fun)
     X = Gexp.subs(x,X)
     fe = exp.subs(x,X)
     fn.append(fe)
@@ -174,8 +170,7 @@ def Newton(X0, Tol, Niter, Fun, tipoDeError):
   N = []
   ERelativo = []
   X = X0
-  #x = X0
-  #f = eval(Fun)
+
   f = exp.subs(x,X0)
   derivada = DFun.subs(x, X0)
   c = 0
@@ -186,12 +181,13 @@ def Newton(X0, Tol, Niter, Fun, tipoDeError):
   E.append(Error)
   ERelativo.append(ErrorRelativo)
   N.append(c)
+
   if derivada == 0:
     return f"Alerta: La derivada de la función es igual a cero!"
+
   while Error>Tol and f!=0 and derivada!=0  and c<Niter:
       X = X-f/derivada
       derivada = DFun.subs(x, X)
-      #f = eval(Fun)
       f = exp.subs(x,X)
       fn.append(f)
       xn.append(X)
@@ -208,7 +204,6 @@ def Newton(X0, Tol, Niter, Fun, tipoDeError):
   elif Error < Tol:
       s = X
       msg = f"{s} es una aproximación de un raíz de f(x) con una tolerancia de {Tol}"
-      #print(tipoDeError)
       if tipoDeError == 'Error absoluto':
         return N, xn ,fn, E, msg
       else: 
@@ -368,45 +363,9 @@ def Secante(X0, X1,Tol,Niter ,Fun, tipoDeError):
       s = 1
       return f"Fracasó en {Niter} iteraciones"
 
-def sustreg(Ab,n):
-	x = np.zeros(n)
-	x[n-1]=Ab[n-1][n]/Ab[n-1][n-1]
-	for i in range(n-2,-1,-1):
-		sum=0
-		for p in range(i+1,n):
-			sum=sum+Ab[i][p]*x[p]
-		x[i]=(Ab[i][n]-sum)/Ab[i][i]
-	return x
-
-def Gauss(A, b, Piv):
-  print(A)
-  print(b)
-  A = np.array(A, dtype='float64')
-  n = len(A)
-  b = np.array((b), dtype='float64')
-  #Piv = 0
-  Ab = np.zeros((3,4))
-  Ab = np.concatenate((A, b), axis = 1)
-  mark = list(range(n))
-
-  for k in range(0,n-1):
-    if Piv == 1:
-      print("pivoteo parcial")
-    elif Piv > 1:
-      print("pivoteo total")
-    for i in range(k+1,n):
-        M = Ab[i][k]/Ab[k][k]
-        for j in range(k,n+1):
-                Ab[i][j] = Ab[i][j]-M*Ab[k][j]
-  x = sustreg(Ab,n)
-  print(x)
-  print("mark =", mark)
-  print("Ab =", Ab)
-  return x, Ab
 
 def RaicesMultiples(X0, Tol, Niter, Fun, DFun, DFun2, tipoDeError):
   x = xmul
-  
   X0 = float(X0)
   Tol = float(Tol)
   Niter = int(Niter)
@@ -480,3 +439,39 @@ def RaicesMultiples(X0, Tol, Niter, Fun, DFun, DFun2, tipoDeError):
   else:
       s = X
       return f"Fracasó en {Niter} iteraciones"
+
+def sustreg(Ab,n):
+	x = np.zeros(n)
+	x[n-1]=Ab[n-1][n]/Ab[n-1][n-1]
+	for i in range(n-2,-1,-1):
+		sum=0
+		for p in range(i+1,n):
+			sum=sum+Ab[i][p]*x[p]
+		x[i]=(Ab[i][n]-sum)/Ab[i][i]
+	return x
+
+def Gauss(A, b, Piv):
+  print(A)
+  print(b)
+  A = np.array(A, dtype='float64')
+  n = len(A)
+  b = np.array((b), dtype='float64')
+  #Piv = 0
+  Ab = np.zeros((3,4))
+  Ab = np.concatenate((A, b), axis = 1)
+  mark = list(range(n))
+
+  for k in range(0,n-1):
+    if Piv == 1:
+      print("pivoteo parcial")
+    elif Piv > 1:
+      print("pivoteo total")
+    for i in range(k+1,n):
+        M = Ab[i][k]/Ab[k][k]
+        for j in range(k,n+1):
+                Ab[i][j] = Ab[i][j]-M*Ab[k][j]
+  x = sustreg(Ab,n)
+  print(x)
+  print("mark =", mark)
+  print("Ab =", Ab)
+  return x, Ab
